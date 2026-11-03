@@ -10,7 +10,7 @@ Historical IEM TAFs are joined by destination station. The newest unambiguous TA
 
 The weather and forecast data have substantial missingness. Do not encode missing observations as calm, dry or zero. Build preprocessing and imputation from the training period only, with missingness indicators if appropriate. Avoid making causal claims from a predictive model. The extended output does not yet include a comprehensive feature dictionary, historical schedule-availability evidence, full airport metadata validation, or an independently executed R loading test. See `model_quality.json` for per-month counts and source failures and `forecast_supplement.log` for acquisition progress.
 
-To resume: `.venv/bin/python src/supplement_forecasts.py`. The source data response is retained losslessly in gzip and hashed in adjacent JSON. Existing completed months are skipped. The 10 GiB data-directory budget and 2 GiB free-space reserve remain in force. R loading example: `analysis/load_model_ready.R`.
+To resume the complete workflow: `.venv/bin/python src/main.py`. The source data response is retained losslessly in gzip and hashed in adjacent JSON. Existing completed months are skipped. The 10 GiB data-directory budget and 2 GiB free-space reserve remain in force. R loading example: `analysis/load_model_ready.R`.
 
 ## Completed run and audit
 
@@ -20,4 +20,4 @@ The 36 master partitions contain 20,928,579 scheduled records. The candidate mod
 - Origin cutoff observation: 14,976,746 rows (73.34%).
 - Destination cutoff observation: 14,777,099 rows (72.37%).
 
-There were 0 reported TAF acquisition failures. Audit verified unique IDs per monthly partition, equality with the original BTS DepDelay, non-cancelled outcomes, split dates, observation cutoffs, forecast issue/validity times and destination station consistency. Run `.venv/bin/python src/validate_model_ready.py` to repeat; detailed field null rates are in `model_validation.json`. This audit checks the stored data and does not independently verify BTS source measurements or prove historical data delivery.
+There were 0 reported TAF acquisition failures. Audit verified unique IDs per monthly partition, equality with the original BTS DepDelay, non-cancelled outcomes, split dates, observation cutoffs, forecast issue/validity times and destination station consistency. Run `.venv/bin/python src/main.py` to repeat the complete workflow and audit; detailed field null rates are in `model_validation.json`. This audit checks the stored data and does not independently verify BTS source measurements or prove historical data delivery.

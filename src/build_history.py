@@ -1,14 +1,12 @@
 """Build partitioned history from completed monthly BTS and annual station files."""
 from __future__ import annotations
 import json, logging
-from datetime import datetime, timezone
 import polars as pl
 from collect_history import DATA, REPORTS, budget
 
 SRC=DATA/'intermediate'/'bts_flights'
 WEATHER=DATA/'intermediate'/'weather'
 OUT=DATA/'processed'/'history'
-PRED_BASE=['flight_id','FlightDate','Reporting_Airline','Flight_Number_Reporting_Airline','Origin','Dest','CRSDepTime','CRSArrTime','CRSElapsedTime','Distance','scheduled_departure_utc','scheduled_arrival_utc','prediction_cutoff_utc','departure_delay_minutes']
 WEATHER_FIELDS=['temperature_c','dewpoint_c','relative_humidity_pct','wind_speed_kt','wind_direction_deg','wind_gust_kt','visibility_m','altimeter_hpa','precipitation_mm','precipitation_trace','cloud_ceiling_ft','weather_codes']
 
 def rotations(current, previous=None):
@@ -47,9 +45,7 @@ def build(src, prev, weather):
     assert frame.height==n and frame['flight_id'].n_unique()==n
     for prefix in ('predictive_origin','predictive_destination'):
         assert frame.filter(pl.col(prefix+'_timestamp_utc')>pl.col('prediction_cutoff_utc')).height==0
-    completed=frame.filter((pl.col('Cancelled')==0)&pl.col('departure_delay_minutes').is_not_null())
-    pred=completed.select(PRED_BASE+[c for c in completed.columns if c.startswith('predictive_')])
-    return frame,completed,pred,rot
+    return frame
 
 def main():
     logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s',handlers=[logging.StreamHandler(),logging.FileHandler(REPORTS/'build_history.log')])
@@ -58,15 +54,16 @@ def main():
     for src in paths:
         year=int(src.parent.parent.name.split('=')[1]);mon=int(src.parent.name.split('=')[1]); y2,m2=(year-1,12) if mon==1 else (year,mon-1)
         prev=SRC/f'year={y2}'/f'month={m2:02d}'/'flights.parquet'
-        targets={name:OUT/name/f'year={year}'/f'month={mon:02d}'/'part.parquet' for name in ('flights_master','flights_explanatory','flights_predictive','aircraft_rotations')}
+        target=OUT/'flights_master'/f'year={year}'/f'month={mon:02d}'/'part.parquet'
         metric=OUT/'metrics'/f'{year}-{mon:02}.json'
-        if metric.exists() and all(p.exists() for p in targets.values()):continue
-        budget(650*1024**2)
+        if metric.exists() and target.exists():continue
+        budget(250*1024**2)
         weather_paths=[p for y in (year-1,year,year+1) for p in sorted((WEATHER/f'year={y}').glob('*.parquet'))]
         weather=pl.concat([pl.read_parquet(p) for p in weather_paths],how='vertical_relaxed') if weather_paths else None
-        frame,completed,pred,rot=build(src,prev,weather)
-        for name,df in [('flights_master',frame),('flights_explanatory',completed),('flights_predictive',pred),('aircraft_rotations',rot)]:
-            p=targets[name];p.parent.mkdir(parents=True,exist_ok=True);tmp=p.with_suffix('.tmp');df.write_parquet(tmp,compression='zstd');tmp.replace(p)
+        frame=build(src,prev,weather)
+        completed=frame.filter((pl.col('Cancelled')==0)&pl.col('departure_delay_minutes').is_not_null())
+        target.parent.mkdir(parents=True,exist_ok=True)
+        tmp=target.with_suffix('.tmp');frame.write_parquet(tmp,compression='zstd');tmp.replace(target)
         metric.parent.mkdir(parents=True,exist_ok=True)
         r={'month':f'{year}-{mon:02}','master_rows':frame.height,'completed_rows':completed.height,'prediction_origin_weather':frame['predictive_origin_timestamp_utc'].is_not_null().sum(),'prediction_destination_weather':frame['predictive_destination_timestamp_utc'].is_not_null().sum(),'previous_tentative':frame['previous_flight_id'].is_not_null().sum()}
         metric.write_text(json.dumps(r,indent=2));reports.append(r);logging.info('%s',r)

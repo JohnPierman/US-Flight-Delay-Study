@@ -1,6 +1,34 @@
 # STAT 4P87 U.S. flight delay study
 
-The final modeling dataset combines 2023–2025 BTS reporting-carrier flight records with airport metadata, historical airport weather observations, and archived destination aviation forecasts. Scheduled and actual local times were checked using airport time zones, elapsed times, and the signed BTS departure-delay outcome; eligible non-cancelled flights were retained for modeling. Weather observations are matched at or before a cutoff 60 minutes before scheduled departure, and destination forecasts must be issued by that cutoff and cover scheduled arrival. The data are stored in monthly Parquet partitions, with 2023–2024 designated for training and 2025 for testing. Forecast coverage is incomplete, historical schedule availability is assumed, and reconstructed aircraft connections are retained for retrospective analysis rather than strict prediction.
+The modeling dataset combines 2023–2025 BTS reporting-carrier domestic flights with airport metadata, historical observations and archived destination aviation forecasts. The signed BTS departure delay is the outcome. Weather is matched at or before a prediction cutoff 60 minutes before scheduled departure; destination forecasts must be issued by that cutoff and cover scheduled arrival. Eligible non-cancelled flights are stored as one partitioned Parquet dataset, with 2023–2024 designated for training and 2025 for testing. Flight schedules and weather delivery times have historical-availability limitations described below.
+
+## Regenerate the dataset
+
+From a fresh clone, install Python 3.11 or later and run from the repository root:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -e '.[test]'
+.venv/bin/python src/main.py
+```
+
+This one command downloads and validates monthly BTS files, obtains airport metadata and IEM observations for the 40 highest-traffic eligible stations, constructs timestamps and weather matches, adds destination forecasts, and runs the final data audit. Work is checkpointed; if a stage fails, rerun the same command to resume. Status and logs are written under `reports/`. The run needs network access and can take substantial time. It enforces an approximate 10 GiB limit on the workspace `data/` directory and keeps 2 GiB of free disk as a reserve; temporary extraction is included in the checks. Raw data, intermediate data and Parquet files are not included in GitHub.
+
+**Final dataset:** `data/processed/history/flights_model_ready/`. It is one Arrow-compatible dataset partitioned by year and month, not one Parquet file. Read the directory using R's `arrow::open_dataset()`; see `analysis/load_model_ready.R`. Intermediate source and master partitions remain on disk for validation and reproducibility, but they are not separate deliverables. Run `.venv/bin/pytest -q` for the automated tests.
+
+For a smaller end-to-end check, use a separate workspace. This downloads January 2024 flights plus weather and forecasts for two airports and does not alter the full dataset:
+
+```bash
+.venv/bin/python src/main.py --smoke --workspace /tmp/flight-delay-smoke
+```
+
+Use `--workspace /path/to/workspace` without `--smoke` to place the full run elsewhere. Each workspace has its own `data/` and `reports/`. Cached downloads and completed partitions are reused; delete or archive a workspace only if you intend to rebuild it. The live data sources and airport metadata can be revised, so a fresh download may not reproduce earlier results byte for byte. BTS records are limited to reporting-carrier nonstop domestic flights, including eligible U.S. territories; they do not cover international flights or all carriers.
+
+## Data quality and limitations
+
+The existing full run produced 20,928,579 scheduled-flight master records and 20,420,136 eligible modeling rows. Its final audit checks row identifiers, official BTS outcome values, weather and forecast cutoff times, destination station mapping, and the temporal split. The label consistency check reconstructs actual UTC using BTS's own delay and checks the local clock; it is not independent confirmation of the precise delay. Ambiguous local times and other unresolved records are excluded from the modeling dataset but retained in the master. Previous-flight links in the intermediate master are tentative and excluded from strict predictive features because historical aircraft-assignment availability is unknown.
+
+Observed weather is available for a subset of airports, and conservative destination forecast intervals cover only some flights. BTS final schedules are assumed available at the cutoff, and observation or forecast issue times may precede actual publication. Consequently this is suitable for exploratory modeling, not a proven real-time backtest. See `reports/data_dictionary.md` for field definitions, `reports/model_readiness.md` for methodology, `reports/model_validation.json` for the last full-run audit, and `reports/polished_model_sample.csv` for example rows. Weather stations, airport metadata and live source revisions can affect regenerated coverage.
 
 <!-- EXPLORATORY SUMMARY START -->
 ## Exploratory summary
@@ -43,43 +71,3 @@ Hours with fewer than 1,000 flights are omitted from the plot; the remaining ove
 
 The master covers BTS reporting-carrier flights, not every flight. The modeling subset excludes cancellations and records without a clock-consistent delay; exclusions may affect these summaries. Flight mix, routes, and weather differ across airports and hours. Regenerate these figures and tables with `.venv/bin/python src/create_summary.py` (requires the local Parquet data).
 <!-- EXPLORATORY SUMMARY END -->
-
-## Earlier smoke test
-
-The initial smoke-test implementation is limited to January 2024 flights where both endpoints are ATL, ORD, DFW, DEN or DSM. Do not generalize its coverage or tentative aircraft rotations to all U.S. flights. The BTS reporting-carrier dataset covers reporting domestic scheduled operations, not every U.S. flight. Filtered flights omit most aircraft histories, including flights outside these airports, non-reporting operations, international flights and repositioning.
-
-## Reproduce the smoke test
-
-Python 3.11 or later; install with `python -m venv .venv`, `.venv/bin/pip install -e '.[test]'`, then `.venv/bin/python src/pipeline.py` and `.venv/bin/pytest -q`. Run `Rscript analysis/exploratory_analysis.R` with R packages arrow, dplyr and ggplot2. The latter has not been verified here. `config/pipeline.yaml` controls smoke airports and time windows. The smoke-test script supports only January 2024; the separate extended pipeline below covers 2023–2025. Raw downloads are cached, untouched; the extracted CSV is a working copy. Downloads use retry and atomic replacement; ZIP integrity is checked. Output files are overwritten on rerun. Raw data and the virtual environment are gitignored.
-
-Sources accessed 2026-11-03: [BTS reporting carrier monthly data](https://www.transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FGJ), [IEM ASOS data](https://mesonet.agron.iastate.edu/request/download.phtml), and [OurAirports airport metadata](https://ourairports.com/data/). Detailed raw file hashes and source URLs are in `reports/provenance.json`. IEM station identifiers equal the IATA codes for these five stations and the downloaded station coordinates are checked to lie within 5 km of airport coordinates. OurAirports is not government authoritative; time zones are estimated from coordinates by timezonefinder, not historically validated official airport time zones. No nearby-station fallback is implemented.
-
-## Smoke-test timing and data integrity
-
-BTS local scheduled departure times are resolved to possible UTC instants using the airport IANA time zone; nonexistent times are rejected and daylight-saving folds are resolved only when the scheduled arrival clock and scheduled elapsed duration identify a unique candidate. Scheduled arrival is departure plus elapsed time and must match the destination local clock. Actual departure and arrival use the official signed delay, check the local clock, and actual arrival additionally checks actual elapsed time. Inconsistent timestamps are missing. Actual departure delay remains the official signed BTS DepDelay; early departures are preserved. The unique ID combines source month and physical source row index, so duplicate-looking records are retained; it is stable only for an unchanged BTS source file.
-
-Weather comes from station METAR/SPECI historical observations, with UTC timestamps, and matches the most recent observation at or before the reference time within 60 minutes. Prediction uses the configurable default 60-minute-before-departure cutoff; departure and scheduled-arrival weather are separate retrospective groups. Arrival weather is at or before scheduled arrival, never an archived forecast. IEM `M` is missing and `T` trace precipitation is missing in the numeric field, with a trace flag in weather output. Measurements are converted from Fahrenheit, miles, inches of mercury, and inches of rain; cloud ceiling is the lowest BKN/OVC/VV layer. Altimeter is not sea-level pressure. IEM observation timestamps are assumed to approximate information availability; publication latency has not been established.
-
-Prior-flight links use the immediately preceding *filtered recorded* tail-number flight when airport continuity holds and observed turnaround is between zero and 24 hours. They are tentative, not verified physical predecessors, and are absent from the predictive dataset. The filter omits aircraft movements and no data are carried across month boundaries. Actual turnaround mechanically includes the target departure outcome and previous delays may be mediators; neither is a causally exogenous predictor by default.
-
-The predictive file uses an explicit schedule-and-weather allowlist and excludes target realized outcomes other than the response and all retrospectively reconstructed tail/rotation variables. Historical schedule snapshots are unavailable: flight existence, identifiers and schedules from the final BTS record are assumed to have been known at cutoff, without proof or revision history. Consequently this is **not yet a demonstrably strict historical prediction dataset**. Weather publication latency is also unverified. Future work must establish historical schedule and observation availability or exclude affected features. No realized congestion measures are included.
-
-## Smoke-test outputs and limitations
-
-The `.parquet` files are individual files, not partitioned datasets. Master retains cancellations; the regression, predictive and explanatory files exclude cancellations and require a nonmissing departure delay, and regression additionally requires a reconstructed scheduled departure. The explanatory file retains realized fields. Quality report, preliminary dictionary, feature availability matrix and provenance are in `reports/`. The matrix contains provisional automated descriptions and is not an audited per-feature availability analysis.
-
-These limitations describe the original smoke test. The extended pipeline below implements multi-year, all-reporting-airport flight collection, partitioned output, and previous-month rotation candidates. Airline name lookup, comprehensive airport/station mapping, schedule-based congestion measures, a complete data dictionary, and independently verified historical information availability remain outstanding.
-
-## Extended 2023–2025 collection (completed)
-
-The collection and build finished for all 36 months. The master contains 20,928,579 scheduled-flight records, and the forecast-enriched modeling dataset contains 20,420,136 eligible flights. Destination forecast coverage is 37.17%, origin cutoff observation coverage is 73.34%, and destination cutoff observation coverage is 72.37% of the modeling dataset. Raw data and Parquet files remain local and are not included in this GitHub repository.
-
-`src/run_history.py` orchestrates three resumable stages: `collect_history.py` downloads all BTS monthly files for 2024–2025 first, then 2023; `collect_weather_history.py` collects IEM observations for up to 40 high-traffic U.S. airports (ranked using January 2024 BTS movements and requiring exact K+IATA ICAO mapping and a station within 5 km); and `build_history.py` builds year/month partitioned master, predictive, explanatory, and tentative rotation datasets under `data/processed/history/`. Start or resume with `.venv/bin/python -u src/run_history.py >> reports/history_run.log 2>&1`. Inspect `reports/history_run_status.json`, `reports/collection.log`, `reports/weather_collection.log`, and `reports/build_history.log`; successful history partitions and their metrics are recorded individually. The collection runs sequentially and the build starts only after flight and weather acquisition. It may take a long time. A nonzero error stops the pipeline; existing verified monthly files are reused on restart.
-
-The 10 GiB limit applies to the complete `data` directory, including raw, intermediate, smoke, and output files. Each stage checks projected usage and retains at least 2 GiB of disk free space before large operations; a storage failure requires space or a configuration change before resuming. These checks are estimates, not a filesystem quota. The virtual environment and software outside `data` are excluded from this cap. Source monthly ZIP files are retained with SHA-256 hashes in adjacent month metadata, and annual IEM CSVs are retained. Individual CSV ZIP contents are extracted temporarily and removed after conversion. The monthly flight partitions are useful flight-only intermediate files; they are not the final weather-enriched datasets.
-
-The history code rejects ambiguous/nonexistent daylight-saving local scheduled times rather than choosing an unverified fold, checks scheduled destination clock against scheduled elapsed time, and checks actual clocks and elapsed times. Airport coordinates and time zones use OurAirports plus timezonefinder, so airport mapping and time zones require further external validation. Previous-month records supply boundary candidates, but connections remain tentative since the BTS dataset omits movements. Weather is limited to selected stations and unmatched airports remain missing. The predictive dataset excludes aircraft assignment and realized prior outcomes because historical assignment availability is unverified. Final BTS schedules are assumed available at the cutoff; weather publication latency is also unknown, so these outputs are **not validated strict historical predictions**. The existing smoke data and report describe only the earlier five-airport sample. The extended pipeline has completed and passed the checks documented in `reports/model_validation.json`; a comprehensive data dictionary and independent verification of historical information availability remain outstanding. `analysis/load_history.R` opens partitioned results using arrow; its R dependencies have not been installed or tested.
-
-## Forecast-enriched candidate modeling data
-
-The 2023–2025 eligible-flight dataset is under `data/processed/history/flights_model_ready`, partitioned by year and month. It retains signed BTS departure delay as the outcome and includes conservatively matched destination TAF forecast intervals. See `reports/model_readiness.md` for the selection rules, measured coverage, leakage assumptions, validation, and chronological split. `reports/polished_model_sample.csv` contains four real rows. This candidate dataset supports preliminary modeling but does not prove real-time historical schedule or observation availability. Rebuild with `.venv/bin/python src/supplement_forecasts.py`; audit with `.venv/bin/python src/validate_model_ready.py`.

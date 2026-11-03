@@ -6,3 +6,6 @@ data/
 reports/*.log
 reports/*.pid
 reports/history_run_status.json
+*.egg-info/
+reports/pipeline_status.json
+reports/weather_collection_manifest_last_run.json

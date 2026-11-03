@@ -1,8 +1,7 @@
 """Build conservative forecast-enriched, validated-label training partitions."""
 from __future__ import annotations
-import argparse, gzip, hashlib, io, json, logging, os
-from pathlib import Path
-from datetime import datetime,timezone,timedelta
+import gzip, hashlib, io, json, logging, os
+from datetime import datetime,timezone
 import polars as pl
 import requests
 from collect_history import DATA, REPORTS, budget
@@ -80,7 +79,7 @@ def enrich(frame,raw):
     return out
 
 
-def build(year,month,raw,pilot=False):
+def build(year,month,raw):
     path=BASE/'flights_master'/f'year={year}'/f'month={month:02d}'/'part.parquet'
     f=pl.read_parquet(path)
     n=f.height
@@ -94,27 +93,18 @@ def build(year,month,raw,pilot=False):
     out=enrich(valid,raw)
     assert out['flight_id'].n_unique()==out.height and out.height==valid.height
     result={'year':year,'month':month,'master_rows':n,'eligible_rows':out.height,'label_quality':counts,'forecast_matches':out['destination_forecast_issued_utc'].is_not_null().sum(),'early_departures':out.filter(pl.col('departure_delay_minutes')<0).height,'train_rows':out.filter(pl.col('temporal_split')=='train_2023_2024').height,'test_rows':out.filter(pl.col('temporal_split')=='test_2025').height}
-    if pilot:
-        out.head(1000).write_parquet(REPORTS/'model_pilot.parquet',compression='zstd')
-        matched=out.filter(pl.col('destination_forecast_issued_utc').is_not_null()).head(5)
-        matched.write_csv(REPORTS/'model_pilot_sample.csv')
-        (REPORTS/'model_pilot_quality.json').write_text(json.dumps(result,indent=2))
-    else:
-        target=OUT/f'year={year}'/f'month={month:02d}'/'part.parquet';target.parent.mkdir(parents=True,exist_ok=True)
-        budget(150*1024**2);tmp=target.with_suffix('.tmp');out.write_parquet(tmp,compression='zstd');tmp.replace(target)
-        METRICS.mkdir(parents=True,exist_ok=True);(METRICS/f'{year}-{month:02d}.json').write_text(json.dumps(result,indent=2))
+    target=OUT/f'year={year}'/f'month={month:02d}'/'part.parquet';target.parent.mkdir(parents=True,exist_ok=True)
+    budget(150*1024**2);tmp=target.with_suffix('.tmp');out.write_parquet(tmp,compression='zstd');tmp.replace(target)
+    METRICS.mkdir(parents=True,exist_ok=True);(METRICS/f'{year}-{month:02d}.json').write_text(json.dumps(result,indent=2))
     return result
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--pilot',action='store_true');args=parser.parse_args()
     logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s',handlers=[logging.StreamHandler(),logging.FileHandler(REPORTS/'forecast_supplement.log')])
-    if args.pilot:
-        p=prepare(fetch('SLC',2024),'SLC',2024);raw=pl.read_parquet(p);logging.info('pilot %s',build(2024,1,raw,True));return
     # Weather observation station set supplies explicit, previously checked airport mappings.
     stations=sorted({p.stem for p in (DATA/'intermediate/weather/year=2024').glob('*.parquet')})
     failures=[]
-    for year in (2023,2024,2025):
+    for year in ([2024] if os.environ.get('FLIGHT_STUDY_SMOKE')=='1' else (2023,2024,2025)):
         paths=[]
         for station in stations:
             try:
@@ -122,9 +112,10 @@ def main():
             except RuntimeError:raise
             except Exception as exc:
                 failures.append({'year':year,'station':station,'error':str(exc)});logging.exception('TAF failure %s %s',station,year)
+        if failures: raise RuntimeError(f'{len(failures)} forecast downloads failed; retry the main command')
         if not paths:raise RuntimeError(f'No usable TAF files for {year}')
         raw=pl.concat([pl.read_parquet(p).with_columns([pl.col(c).cast(pl.Float64,strict=False) for c in ('sknt','drct','gust','visibility')]) for p in paths],how='vertical_relaxed')
-        for month in range(1,13):
+        for month in ([1] if os.environ.get('FLIGHT_STUDY_SMOKE')=='1' else range(1,13)):
             target=OUT/f'year={year}'/f'month={month:02d}'/'part.parquet';metric=METRICS/f'{year}-{month:02d}.json'
             if target.exists() and metric.exists():continue
             logging.info('built %s',build(year,month,raw))

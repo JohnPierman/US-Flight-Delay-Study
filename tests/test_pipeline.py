@@ -1,57 +1,6 @@
 from datetime import datetime, timezone, timedelta
-from pipeline import local_candidates, timestamps, weather_at
 
 UTC=timezone.utc
-
-def row(**kwargs):
-    base={'FlightDate':'2024-01-01','CRSDepTime':'2330','CRSArrTime':'0130','CRSElapsedTime':'120','DepTime':'0030','DepDelay':'60','ArrTime':'0230','ArrDelay':'60','ActualElapsedTime':'120'}
-    return base | kwargs
-
-def test_midnight_and_delay():
-    sd,sa,ad,aa,status=timestamps(row(),'America/Chicago','America/Chicago')
-    assert (sa-sd).total_seconds()==7200
-    assert (ad-sd).total_seconds()==3600 and (aa-sa).total_seconds()==3600
-    assert status=='ok'
-
-def test_nonexistent_and_ambiguous_dst():
-    assert local_candidates('2024-03-10','0230','America/New_York') == []
-    assert len(local_candidates('2024-11-03','0130','America/New_York')) == 2
-
-def test_ambiguous_time_not_invented():
-    data=row(FlightDate='2024-11-03',CRSDepTime='0130',CRSArrTime='0330',CRSElapsedTime='120')
-    # Both folds are considered; only the second is consistent with two elapsed hours.
-    assert timestamps(data,'America/New_York','America/New_York')[0] == datetime(2024,11,3,6,30,tzinfo=UTC)
-
-def test_delay_longer_than_day():
-    sd,sa,ad,aa,_=timestamps(row(DepTime='0030',DepDelay='1500',ArrTime='0230',ArrDelay='1500'),'America/Chicago','America/Chicago')
-    assert (ad-sd)==timedelta(minutes=1500)
-
-def test_bad_actual_clock_is_missing():
-    assert timestamps(row(DepTime='0040'),'America/Chicago','America/Chicago')[2] is None
-
-def test_weather_never_looks_ahead():
-    t=datetime(2024,1,1,tzinfo=UTC)
-    records=[{'timestamp_utc':t},{'timestamp_utc':t+timedelta(minutes=30)}]
-    assert weather_at(records,[x['timestamp_utc'] for x in records],t+timedelta(minutes=20),60)==records[0]
-    assert weather_at(records,[x['timestamp_utc'] for x in records],t-timedelta(minutes=1),60) is None
-
-def test_pilot_outputs_if_present():
-    from pathlib import Path
-    import polars as pl
-    path=Path(__file__).resolve().parents[1]/'data/processed'
-    if not (path/'flights_master.parquet').exists():
-        import pytest
-        pytest.skip('run the real-data smoke first')
-    master=pl.read_parquet(path/'flights_master.parquet')
-    pred=pl.read_parquet(path/'flights_predictive.parquet')
-    expl=pl.read_parquet(path/'flights_explanatory.parquet')
-    assert master['flight_id'].n_unique()==master.height
-    assert pred['flight_id'].n_unique()==pred.height
-    assert set(pred['flight_id'])==set(expl['flight_id'])
-    assert pred.select(['flight_id','departure_delay_minutes']).sort('flight_id').equals(expl.select(['flight_id','departure_delay_minutes']).sort('flight_id'))
-    assert not {'DepTime','ArrTime','DepDelay','ArrDelay','Tail_Number','actual_turnaround_minutes','previous_flight_id'} & set(pred.columns)
-    for prefix in ('predictive_origin','predictive_destination'):
-        assert pred.filter(pl.col(prefix+'_timestamp_utc')>pl.col('prediction_cutoff_utc')).height==0
 
 def test_history_weather_join_never_multiplies_or_looks_ahead():
     import polars as pl
@@ -90,20 +39,6 @@ def test_taf_latest_issue_and_forecast_interval():
     assert out['destination_forecast_product_id'].to_list()==['old','new',None]
     assert out.filter(pl.col('destination_forecast_issued_utc')>pl.col('prediction_cutoff_utc')).height==0
 
-def test_real_forecast_pilot_if_available():
-    from pathlib import Path
-    import polars as pl
-    path=Path(__file__).resolve().parents[1]/'reports/model_pilot_sample.csv'
-    if not path.exists():
-        import pytest
-        pytest.skip('forecast pilot has not run')
-    p=pl.read_csv(path,try_parse_dates=True)
-    assert p.height>0 and p['flight_id'].n_unique()==p.height
-    assert p.filter(pl.col('destination_forecast_issued_utc')>pl.col('prediction_cutoff_utc')).height==0
-    assert p.filter(pl.col('destination_forecast_valid_from_utc')>pl.col('scheduled_arrival_utc')).height==0
-    assert p.filter(pl.col('destination_forecast_valid_until_utc')<=pl.col('scheduled_arrival_utc')).height==0
-    assert not {'DepTime','ArrTime','DepDelay','ArrDelay','Tail_Number','actual_turnaround_minutes','previous_flight_id'} & set(p.columns)
-
 def test_ambiguous_newer_taf_does_not_fall_back_to_old_forecast():
     import polars as pl
     from supplement_forecasts import enrich
@@ -114,3 +49,32 @@ def test_ambiguous_newer_taf_does_not_fall_back_to_old_forecast():
             rows.append({'station':'KORD','valid':issue,'product_id':product,'fx_valid':t+timedelta(hours=h),'ftype':'Forecast','raw':'FM test','sknt':'5','drct':'270','gust':None,'visibility':'6','presentwx':None,'skyc':None,'skyl':None})
     flights=pl.DataFrame({'flight_id':['a'],'Dest':['ORD'],'prediction_cutoff_utc':[t+timedelta(hours=3)],'scheduled_arrival_utc':[t+timedelta(hours=4)]})
     assert enrich(flights,pl.DataFrame(rows))['destination_forecast_product_id'].to_list()==[None]
+
+def test_production_timestamps_reject_dst_gap_and_handle_midnight():
+    import polars as pl
+    from collect_history import compute
+    rows=[{'FlightDate':'2024-01-01','Origin':'AAA','Dest':'AAA','CRSDepTime':'2330','CRSArrTime':'0130','CRSElapsedTime':120.,'DepTime':'0030','DepDelay':60.,'ArrTime':'0230','ArrDelay':60.,'ActualElapsedTime':120.},
+          {'FlightDate':'2024-03-10','Origin':'AAA','Dest':'AAA','CRSDepTime':'0230','CRSArrTime':'0330','CRSElapsedTime':60.,'DepTime':'0230','DepDelay':0.,'ArrTime':'0330','ArrDelay':0.,'ActualElapsedTime':60.}]
+    airports=pl.DataFrame({'code':['AAA'],'timezone':['America/New_York']})
+    result=compute(pl.DataFrame(rows),airports)
+    good=result.filter(pl.col('FlightDate')=='2024-01-01').row(0,named=True)
+    assert good['actual_departure_utc']-good['scheduled_departure_utc']==timedelta(minutes=60)
+    assert good['actual_arrival_utc']-good['actual_departure_utc']==timedelta(minutes=120)
+    assert result.filter(pl.col('FlightDate')=='2024-03-10')['scheduled_departure_utc'].item() is None
+
+
+def test_main_stops_and_records_failed_stage(tmp_path,monkeypatch):
+    import json
+    import sys
+    import main as entry
+    from types import SimpleNamespace
+    called=[]
+    def fake_run(command,**kwargs):
+        called.append(command[-1])
+        return SimpleNamespace(returncode=7 if command[-1].endswith('collect_weather_history.py') else 0)
+    monkeypatch.setattr(entry.subprocess,'run',fake_run)
+    monkeypatch.setattr(sys,'argv',['main.py','--smoke','--workspace',str(tmp_path)])
+    assert entry.main()==7
+    assert len(called)==2
+    status=json.loads((tmp_path/'reports/pipeline_status.json').read_text())
+    assert status['state']=='failed' and status['exit_code']==7 and status['smoke']

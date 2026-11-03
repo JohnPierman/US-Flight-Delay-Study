@@ -1,10 +1,9 @@
 """Collect annual IEM histories for high-traffic stations, retaining source CSVs."""
-import csv, json, logging, math, os
+import csv, json, logging, os
 from datetime import datetime,timezone
-from pathlib import Path
 import polars as pl
 from collect_history import DATA, RAW, REPORTS, budget
-from pipeline import IEM, download, haversine, asfloat
+from common import IEM, download, haversine, asfloat
 
 WEATHER=DATA/'intermediate'/'weather'
 
@@ -14,11 +13,12 @@ def main():
     flights=pl.scan_parquet(source)
     traffic=pl.concat([flights.select(pl.col('Origin').alias('code')),flights.select(pl.col('Dest').alias('code'))]).group_by('code').len().sort('len',descending=True).collect()
     airports=pl.read_parquet(DATA/'intermediate/airport_metadata.parquet')
-    candidates=traffic.join(airports,on='code',how='inner').sort('len',descending=True).filter(pl.col('icao')==pl.concat_str([pl.lit('K'),pl.col('code')])).head(int(os.environ.get('IEM_MAX_STATIONS','40')))
+    candidates=traffic.join(airports,on='code',how='inner').sort('len',descending=True).filter(pl.col('icao')==pl.concat_str([pl.lit('K'),pl.col('code')])).head(2 if os.environ.get('FLIGHT_STUDY_SMOKE')=='1' else 40)
     manifest=[]
+    failures=[]
     for station in candidates.to_dicts():
         code=station['code']
-        for year in map(int,os.environ.get('IEM_YEARS','2024,2025,2023').split(',')):
+        for year in ([2024] if os.environ.get('FLIGHT_STUDY_SMOKE')=='1' else [2024,2025,2023]):
             path=RAW/'iem_annual'/f'{code}_{year}.csv';target=WEATHER/f'year={year}'/f'{code}.parquet';target.parent.mkdir(parents=True,exist_ok=True)
             if target.exists(): continue
             budget(100*1024**2)
@@ -45,6 +45,8 @@ def main():
             except RuntimeError:
                 raise
             except Exception as e:
-                logging.exception('IEM failed %s %s: %s; continuing other stations',code,year,e)
-    (REPORTS/'weather_collection_manifest_last_run.json').write_text(json.dumps(manifest,indent=2))
+                failures.append(f'{code} {year}: {e}')
+                logging.exception('IEM failed %s %s: %s',code,year,e)
+    (REPORTS/'weather_collection_manifest_last_run.json').write_text(json.dumps({'collected':manifest,'failures':failures},indent=2))
+    if failures: raise RuntimeError(f'{len(failures)} weather downloads failed; retry the main command')
 if __name__=='__main__':main()

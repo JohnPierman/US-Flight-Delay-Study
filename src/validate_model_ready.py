@@ -1,11 +1,12 @@
 """Audit each model partition against source labels and enforce cutoff rules."""
-import json
+import json, os
 from pathlib import Path
 import polars as pl
 from collect_history import DATA,REPORTS
 
 base=DATA/'processed/history'; paths=sorted((base/'flights_model_ready').glob('year=*/month=*/part.parquet'))
-if len(paths)!=36:raise SystemExit(f'Expected 36 partitions, got {len(paths)}')
+expected=1 if os.environ.get('FLIGHT_STUDY_SMOKE')=='1' else 36
+if len(paths)!=expected:raise SystemExit(f'Expected {expected} partitions, got {len(paths)}')
 summary={'partitions':len(paths),'rows':0,'train_rows':0,'test_rows':0,'negative_delays':0,'forecast_matches':0,'origin_weather_matches':0,'destination_weather_matches':0,'issues':[], 'null_counts':{}}
 for path in paths:
     y=int(path.parent.parent.name.split('=')[1]);m=int(path.parent.name.split('=')[1])

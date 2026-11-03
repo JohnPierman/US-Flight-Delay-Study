@@ -6,7 +6,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import polars as pl
 
-ROOT=Path(__file__).resolve().parents[1]
+from common import ROOT
 BASE=ROOT/'data/processed/history'
 OUT=ROOT/'reports/figures'
 START='<!-- EXPLORATORY SUMMARY START -->'

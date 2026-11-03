@@ -1,14 +1,11 @@
 """Resumable, budget-aware BTS ingestion for 2023–2025. No model data are fabricated."""
 from __future__ import annotations
-import calendar, csv, hashlib, json, logging, os, shutil, time, zipfile
+import csv, hashlib, json, logging, os, shutil, zipfile
 from datetime import datetime, timezone
-from pathlib import Path
 import polars as pl
 from timezonefinder import TimezoneFinder
-from pipeline import ROOT, RAW, BTS, download, metadata
+from common import ROOT, RAW, BTS, download
 
-START_YEAR=2023
-END_YEAR=2025
 DATA=ROOT/'data'
 ZIPDIR=RAW/'bts_monthly'
 PARTS=DATA/'intermediate'/'bts_flights'
@@ -132,8 +129,8 @@ def main():
     logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s',handlers=[logging.StreamHandler(),logging.FileHandler(REPORTS/'collection.log')])
     airports=airport_zones();logging.info('Mapped %d unambiguous US airport codes',airports.height)
     # Complete requested 2024–2025 first, then extend backward to 2023.
-    for year in [2024,2025,2023]:
-        for mon in range(1,13):
+    for year in ([2024] if os.environ.get("FLIGHT_STUDY_SMOKE") == "1" else [2024,2025,2023]):
+        for mon in ([1] if os.environ.get("FLIGHT_STUDY_SMOKE") == "1" else range(1,13)):
             try: month(year,mon,airports)
             except Exception:
                 logging.exception('Failed month %s-%02d; stopping for safe restart',year,mon);raise
