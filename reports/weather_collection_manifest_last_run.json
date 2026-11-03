@@ -1,0 +1,3002 @@
+[
+  {
+    "station": "ATL",
+    "year": 2024,
+    "rows": 10156,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "ATL",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "ATL",
+    "year": 2025,
+    "rows": 10224,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "ATL",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "ATL",
+    "year": 2023,
+    "rows": 10306,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "ATL",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DFW",
+    "year": 2024,
+    "rows": 10323,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DFW",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DFW",
+    "year": 2025,
+    "rows": 9945,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DFW",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DFW",
+    "year": 2023,
+    "rows": 10159,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DFW",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DEN",
+    "year": 2024,
+    "rows": 10136,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DEN",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DEN",
+    "year": 2025,
+    "rows": 10310,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DEN",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DEN",
+    "year": 2023,
+    "rows": 10654,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DEN",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "ORD",
+    "year": 2024,
+    "rows": 10647,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "ORD",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "ORD",
+    "year": 2025,
+    "rows": 10604,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "ORD",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "ORD",
+    "year": 2023,
+    "rows": 10923,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "ORD",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "CLT",
+    "year": 2024,
+    "rows": 10482,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "CLT",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "CLT",
+    "year": 2025,
+    "rows": 10241,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "CLT",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "CLT",
+    "year": 2023,
+    "rows": 10000,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "CLT",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "PHX",
+    "year": 2024,
+    "rows": 9102,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "PHX",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "PHX",
+    "year": 2025,
+    "rows": 9087,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "PHX",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "PHX",
+    "year": 2023,
+    "rows": 9087,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "PHX",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "LAX",
+    "year": 2024,
+    "rows": 10581,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "LAX",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "LAX",
+    "year": 2025,
+    "rows": 10682,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "LAX",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "LAX",
+    "year": 2023,
+    "rows": 10401,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "LAX",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "LAS",
+    "year": 2024,
+    "rows": 9214,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "LAS",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "LAS",
+    "year": 2025,
+    "rows": 9068,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "LAS",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "LAS",
+    "year": 2023,
+    "rows": 9160,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "LAS",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MCO",
+    "year": 2024,
+    "rows": 9975,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MCO",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MCO",
+    "year": 2025,
+    "rows": 10056,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MCO",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MCO",
+    "year": 2023,
+    "rows": 9958,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MCO",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "LGA",
+    "year": 2024,
+    "rows": 10162,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "LGA",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "LGA",
+    "year": 2025,
+    "rows": 10033,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "LGA",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "LGA",
+    "year": 2023,
+    "rows": 10235,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "LGA",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SEA",
+    "year": 2024,
+    "rows": 10826,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SEA",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SEA",
+    "year": 2025,
+    "rows": 10634,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SEA",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SEA",
+    "year": 2023,
+    "rows": 10920,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SEA",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DCA",
+    "year": 2024,
+    "rows": 10821,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DCA",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DCA",
+    "year": 2025,
+    "rows": 10662,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DCA",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DCA",
+    "year": 2023,
+    "rows": 10592,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DCA",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MIA",
+    "year": 2024,
+    "rows": 9898,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MIA",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MIA",
+    "year": 2025,
+    "rows": 9800,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MIA",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MIA",
+    "year": 2023,
+    "rows": 9944,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MIA",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "EWR",
+    "year": 2024,
+    "rows": 9927,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "EWR",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "EWR",
+    "year": 2025,
+    "rows": 9832,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "EWR",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "EWR",
+    "year": 2023,
+    "rows": 9980,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "EWR",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SFO",
+    "year": 2024,
+    "rows": 9765,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SFO",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SFO",
+    "year": 2025,
+    "rows": 10152,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SFO",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SFO",
+    "year": 2023,
+    "rows": 9716,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SFO",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "BOS",
+    "year": 2024,
+    "rows": 10517,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "BOS",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "BOS",
+    "year": 2025,
+    "rows": 10345,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "BOS",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "BOS",
+    "year": 2023,
+    "rows": 10870,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "BOS",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DTW",
+    "year": 2024,
+    "rows": 10909,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DTW",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DTW",
+    "year": 2025,
+    "rows": 11043,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DTW",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DTW",
+    "year": 2023,
+    "rows": 10908,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DTW",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "JFK",
+    "year": 2024,
+    "rows": 9947,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "JFK",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "JFK",
+    "year": 2025,
+    "rows": 9689,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "JFK",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "JFK",
+    "year": 2023,
+    "rows": 10197,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "JFK",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SLC",
+    "year": 2024,
+    "rows": 9944,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SLC",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SLC",
+    "year": 2025,
+    "rows": 9609,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SLC",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SLC",
+    "year": 2023,
+    "rows": 10115,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SLC",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MSP",
+    "year": 2024,
+    "rows": 10870,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MSP",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MSP",
+    "year": 2025,
+    "rows": 10525,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MSP",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MSP",
+    "year": 2023,
+    "rows": 10891,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MSP",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "IAH",
+    "year": 2024,
+    "rows": 10194,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "IAH",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "IAH",
+    "year": 2025,
+    "rows": 9867,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "IAH",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "IAH",
+    "year": 2023,
+    "rows": 9888,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "IAH",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "FLL",
+    "year": 2024,
+    "rows": 9843,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "FLL",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "FLL",
+    "year": 2025,
+    "rows": 9677,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "FLL",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "FLL",
+    "year": 2023,
+    "rows": 9813,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "FLL",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "BNA",
+    "year": 2024,
+    "rows": 9855,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "BNA",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "BNA",
+    "year": 2025,
+    "rows": 9745,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "BNA",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "BNA",
+    "year": 2023,
+    "rows": 9865,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "BNA",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "BWI",
+    "year": 2024,
+    "rows": 10090,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "BWI",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "BWI",
+    "year": 2025,
+    "rows": 10000,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "BWI",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "BWI",
+    "year": 2023,
+    "rows": 9928,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "BWI",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SAN",
+    "year": 2024,
+    "rows": 11234,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SAN",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SAN",
+    "year": 2025,
+    "rows": 11475,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SAN",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SAN",
+    "year": 2023,
+    "rows": 11155,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SAN",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "PHL",
+    "year": 2024,
+    "rows": 11127,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "PHL",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "PHL",
+    "year": 2025,
+    "rows": 11323,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "PHL",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "PHL",
+    "year": 2023,
+    "rows": 11105,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "PHL",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "TPA",
+    "year": 2024,
+    "rows": 10241,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "TPA",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "TPA",
+    "year": 2025,
+    "rows": 10311,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "TPA",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "TPA",
+    "year": 2023,
+    "rows": 9913,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "TPA",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "AUS",
+    "year": 2024,
+    "rows": 10117,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "AUS",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "AUS",
+    "year": 2025,
+    "rows": 10078,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "AUS",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "AUS",
+    "year": 2023,
+    "rows": 10022,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "AUS",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DAL",
+    "year": 2024,
+    "rows": 10414,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DAL",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DAL",
+    "year": 2025,
+    "rows": 10046,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DAL",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "DAL",
+    "year": 2023,
+    "rows": 10140,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "DAL",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MDW",
+    "year": 2024,
+    "rows": 10132,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MDW",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MDW",
+    "year": 2025,
+    "rows": 10049,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MDW",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MDW",
+    "year": 2023,
+    "rows": 10328,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MDW",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "STL",
+    "year": 2024,
+    "rows": 10887,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "STL",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "STL",
+    "year": 2025,
+    "rows": 10722,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "STL",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "STL",
+    "year": 2023,
+    "rows": 10674,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "STL",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "HOU",
+    "year": 2024,
+    "rows": 11073,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "HOU",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "HOU",
+    "year": 2025,
+    "rows": 10155,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "HOU",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "HOU",
+    "year": 2023,
+    "rows": 10535,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "HOU",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "RDU",
+    "year": 2024,
+    "rows": 9958,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "RDU",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "RDU",
+    "year": 2025,
+    "rows": 9973,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "RDU",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "RDU",
+    "year": 2023,
+    "rows": 9900,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "RDU",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "PDX",
+    "year": 2024,
+    "rows": 10262,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "PDX",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "PDX",
+    "year": 2025,
+    "rows": 10274,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "PDX",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "PDX",
+    "year": 2023,
+    "rows": 10386,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "PDX",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SMF",
+    "year": 2024,
+    "rows": 9582,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SMF",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SMF",
+    "year": 2025,
+    "rows": 9537,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SMF",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SMF",
+    "year": 2023,
+    "rows": 9469,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SMF",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MSY",
+    "year": 2024,
+    "rows": 10873,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MSY",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MSY",
+    "year": 2025,
+    "rows": 10217,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MSY",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MSY",
+    "year": 2023,
+    "rows": 10531,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MSY",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "IAD",
+    "year": 2024,
+    "rows": 10101,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "IAD",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "IAD",
+    "year": 2025,
+    "rows": 10052,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "IAD",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "IAD",
+    "year": 2023,
+    "rows": 9959,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "IAD",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "RSW",
+    "year": 2024,
+    "rows": 10703,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "RSW",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "RSW",
+    "year": 2025,
+    "rows": 10680,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "RSW",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "RSW",
+    "year": 2023,
+    "rows": 10587,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "RSW",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SJC",
+    "year": 2024,
+    "rows": 9487,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SJC",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SJC",
+    "year": 2025,
+    "rows": 9736,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SJC",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "SJC",
+    "year": 2023,
+    "rows": 9519,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "SJC",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MCI",
+    "year": 2024,
+    "rows": 10249,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MCI",
+      "data": "all",
+      "year1": 2024,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2025,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MCI",
+    "year": 2025,
+    "rows": 10129,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MCI",
+      "data": "all",
+      "year1": 2025,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2026,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "station": "MCI",
+    "year": 2023,
+    "rows": 10225,
+    "source": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "params": {
+      "station": "MCI",
+      "data": "all",
+      "year1": 2023,
+      "month1": 1,
+      "day1": 1,
+      "year2": 2024,
+      "month2": 1,
+      "day2": 1,
+      "tz": "Etc/UTC",
+      "format": "onlycomma",
+      "latlon": "yes",
+      "missing": "M",
+      "trace": "T",
+      "report_type": [
+        3,
+        4
+      ]
+    }
+  }
+]

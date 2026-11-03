@@ -1,0 +1,6 @@
+# This preliminary implementation supports the bounded January 2024 smoke only.
+year: 2024
+month: 1
+airports: [ATL, ORD, DFW, DEN, DSM]
+prediction_minutes_before_departure: 60
+weather_max_age_minutes: 60

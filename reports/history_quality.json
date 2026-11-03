@@ -1,0 +1,293 @@
+{
+  "partitions": [
+    {
+      "month": "2023-01",
+      "master_rows": 538837,
+      "completed_rows": 528542,
+      "prediction_origin_weather": 394461,
+      "prediction_destination_weather": 388787,
+      "previous_tentative": 488133
+    },
+    {
+      "month": "2023-02",
+      "master_rows": 502749,
+      "completed_rows": 493730,
+      "prediction_origin_weather": 367511,
+      "prediction_destination_weather": 362508,
+      "previous_tentative": 461464
+    },
+    {
+      "month": "2023-03",
+      "master_rows": 580322,
+      "completed_rows": 572916,
+      "prediction_origin_weather": 422833,
+      "prediction_destination_weather": 417104,
+      "previous_tentative": 537903
+    },
+    {
+      "month": "2023-04",
+      "master_rows": 561441,
+      "completed_rows": 551852,
+      "prediction_origin_weather": 409358,
+      "prediction_destination_weather": 403933,
+      "previous_tentative": 518000
+    },
+    {
+      "month": "2023-05",
+      "master_rows": 579958,
+      "completed_rows": 576648,
+      "prediction_origin_weather": 424525,
+      "prediction_destination_weather": 419106,
+      "previous_tentative": 545810
+    },
+    {
+      "month": "2023-06",
+      "master_rows": 577262,
+      "completed_rows": 565043,
+      "prediction_origin_weather": 418437,
+      "prediction_destination_weather": 413132,
+      "previous_tentative": 531066
+    },
+    {
+      "month": "2023-07",
+      "master_rows": 601866,
+      "completed_rows": 587260,
+      "prediction_origin_weather": 435021,
+      "prediction_destination_weather": 429530,
+      "previous_tentative": 549691
+    },
+    {
+      "month": "2023-08",
+      "master_rows": 602987,
+      "completed_rows": 593815,
+      "prediction_origin_weather": 438205,
+      "prediction_destination_weather": 432995,
+      "previous_tentative": 559398
+    },
+    {
+      "month": "2023-09",
+      "master_rows": 569338,
+      "completed_rows": 562280,
+      "prediction_origin_weather": 415544,
+      "prediction_destination_weather": 411539,
+      "previous_tentative": 534853
+    },
+    {
+      "month": "2023-10",
+      "master_rows": 598968,
+      "completed_rows": 596828,
+      "prediction_origin_weather": 437824,
+      "prediction_destination_weather": 433417,
+      "previous_tentative": 570438
+    },
+    {
+      "month": "2023-11",
+      "master_rows": 563777,
+      "completed_rows": 562958,
+      "prediction_origin_weather": 412657,
+      "prediction_destination_weather": 407514,
+      "previous_tentative": 534126
+    },
+    {
+      "month": "2023-12",
+      "master_rows": 570394,
+      "completed_rows": 568084,
+      "prediction_origin_weather": 416346,
+      "prediction_destination_weather": 410306,
+      "previous_tentative": 534255
+    },
+    {
+      "month": "2024-01",
+      "master_rows": 547271,
+      "completed_rows": 526882,
+      "prediction_origin_weather": 398103,
+      "prediction_destination_weather": 391889,
+      "previous_tentative": 485683
+    },
+    {
+      "month": "2024-02",
+      "master_rows": 519221,
+      "completed_rows": 516219,
+      "prediction_origin_weather": 377695,
+      "prediction_destination_weather": 371981,
+      "previous_tentative": 484342
+    },
+    {
+      "month": "2024-03",
+      "master_rows": 591767,
+      "completed_rows": 586647,
+      "prediction_origin_weather": 429088,
+      "prediction_destination_weather": 422503,
+      "previous_tentative": 549645
+    },
+    {
+      "month": "2024-04",
+      "master_rows": 582185,
+      "completed_rows": 578150,
+      "prediction_origin_weather": 424573,
+      "prediction_destination_weather": 418679,
+      "previous_tentative": 545439
+    },
+    {
+      "month": "2024-05",
+      "master_rows": 609743,
+      "completed_rows": 601499,
+      "prediction_origin_weather": 444739,
+      "prediction_destination_weather": 438676,
+      "previous_tentative": 564560
+    },
+    {
+      "month": "2024-06",
+      "master_rows": 611132,
+      "completed_rows": 603256,
+      "prediction_origin_weather": 440029,
+      "prediction_destination_weather": 434393,
+      "previous_tentative": 567891
+    },
+    {
+      "month": "2024-07",
+      "master_rows": 634613,
+      "completed_rows": 616241,
+      "prediction_origin_weather": 455766,
+      "prediction_destination_weather": 449903,
+      "previous_tentative": 574280
+    },
+    {
+      "month": "2024-08",
+      "master_rows": 619025,
+      "completed_rows": 606311,
+      "prediction_origin_weather": 446889,
+      "prediction_destination_weather": 441608,
+      "previous_tentative": 570555
+    },
+    {
+      "month": "2024-09",
+      "master_rows": 582622,
+      "completed_rows": 579123,
+      "prediction_origin_weather": 422761,
+      "prediction_destination_weather": 418823,
+      "previous_tentative": 552366
+    },
+    {
+      "month": "2024-10",
+      "master_rows": 615497,
+      "completed_rows": 609213,
+      "prediction_origin_weather": 446480,
+      "prediction_destination_weather": 442019,
+      "previous_tentative": 580437
+    },
+    {
+      "month": "2024-11",
+      "master_rows": 575404,
+      "completed_rows": 572775,
+      "prediction_origin_weather": 418429,
+      "prediction_destination_weather": 413093,
+      "previous_tentative": 541691
+    },
+    {
+      "month": "2024-12",
+      "master_rows": 590581,
+      "completed_rows": 586430,
+      "prediction_origin_weather": 427468,
+      "prediction_destination_weather": 420958,
+      "previous_tentative": 549743
+    },
+    {
+      "month": "2025-01",
+      "master_rows": 539747,
+      "completed_rows": 523435,
+      "prediction_origin_weather": 392683,
+      "prediction_destination_weather": 386390,
+      "previous_tentative": 482483
+    },
+    {
+      "month": "2025-02",
+      "master_rows": 504884,
+      "completed_rows": 497479,
+      "prediction_origin_weather": 366699,
+      "prediction_destination_weather": 360974,
+      "previous_tentative": 463385
+    },
+    {
+      "month": "2025-03",
+      "master_rows": 600872,
+      "completed_rows": 593949,
+      "prediction_origin_weather": 434696,
+      "prediction_destination_weather": 427658,
+      "previous_tentative": 555619
+    },
+    {
+      "month": "2025-04",
+      "master_rows": 583950,
+      "completed_rows": 579036,
+      "prediction_origin_weather": 423829,
+      "prediction_destination_weather": 417775,
+      "previous_tentative": 545011
+    },
+    {
+      "month": "2025-05",
+      "master_rows": 605648,
+      "completed_rows": 599304,
+      "prediction_origin_weather": 438317,
+      "prediction_destination_weather": 432689,
+      "previous_tentative": 564374
+    },
+    {
+      "month": "2025-06",
+      "master_rows": 611575,
+      "completed_rows": 601839,
+      "prediction_origin_weather": 438620,
+      "prediction_destination_weather": 433078,
+      "previous_tentative": 564092
+    },
+    {
+      "month": "2025-07",
+      "master_rows": 631428,
+      "completed_rows": 615955,
+      "prediction_origin_weather": 452212,
+      "prediction_destination_weather": 446454,
+      "previous_tentative": 574074
+    },
+    {
+      "month": "2025-08",
+      "master_rows": 602378,
+      "completed_rows": 595895,
+      "prediction_origin_weather": 432462,
+      "prediction_destination_weather": 427413,
+      "previous_tentative": 561275
+    },
+    {
+      "month": "2025-09",
+      "master_rows": 562439,
+      "completed_rows": 559553,
+      "prediction_origin_weather": 406772,
+      "prediction_destination_weather": 403049,
+      "previous_tentative": 532993
+    },
+    {
+      "month": "2025-10",
+      "master_rows": 605844,
+      "completed_rows": 602640,
+      "prediction_origin_weather": 438158,
+      "prediction_destination_weather": 433718,
+      "previous_tentative": 573442
+    },
+    {
+      "month": "2025-11",
+      "master_rows": 570550,
+      "completed_rows": 556355,
+      "prediction_origin_weather": 413171,
+      "prediction_destination_weather": 407646,
+      "previous_tentative": 518394
+    },
+    {
+      "month": "2025-12",
+      "master_rows": 582304,
+      "completed_rows": 573303,
+      "prediction_origin_weather": 420068,
+      "prediction_destination_weather": 413812,
+      "previous_tentative": 533260
+    }
+  ],
+  "note": "Tentative rotations; schedule snapshots and weather publication latency unverified."
+}

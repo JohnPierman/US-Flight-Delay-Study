@@ -1,0 +1,45 @@
+{
+  "retrieved_note": "Existing raw files are reused; timestamps are filesystem modification times in UTC.",
+  "files": [
+    {
+      "path": "data/raw/bts_2024_01.zip",
+      "sha256": "fe089b45523f9d4ac0ccd0e176a543d274e914ee5ae5bd384dbaafc7dc06ebfd",
+      "mtime_utc": "2026-11-03T15:04:02.852543+00:00"
+    },
+    {
+      "path": "data/raw/airports.csv",
+      "sha256": "6852f06007ec1154256faff98edb8bbfbbce93fdb279525940864f07e9d90b32",
+      "mtime_utc": "2026-11-03T15:04:03.472319+00:00"
+    },
+    {
+      "path": "data/raw/iem_ATL_2024_01.csv",
+      "sha256": "6b0f0f1022f335ae865224a5e115c42f69dbfd848cbf551d9ba44e25587e6b75",
+      "mtime_utc": "2026-11-03T15:05:18.913330+00:00"
+    },
+    {
+      "path": "data/raw/iem_DEN_2024_01.csv",
+      "sha256": "e0ee02cdf4d058beac80f8feee9fa37b391bdb6a60dc68db6fdb2b6ac5aea49c",
+      "mtime_utc": "2026-11-03T15:05:19.217497+00:00"
+    },
+    {
+      "path": "data/raw/iem_DFW_2024_01.csv",
+      "sha256": "c1b3a17da577232af8c67293bc9300559a97c0d85ba1e3a3936eaefd71fad273",
+      "mtime_utc": "2026-11-03T15:05:19.475843+00:00"
+    },
+    {
+      "path": "data/raw/iem_DSM_2024_01.csv",
+      "sha256": "c317e5b17788fd59825a41b590b4ff792d0f52430fc22b7474dcc69247d9eca0",
+      "mtime_utc": "2026-11-03T15:05:19.725894+00:00"
+    },
+    {
+      "path": "data/raw/iem_ORD_2024_01.csv",
+      "sha256": "b63a01883fea6dd11e5f21da5046f884a7c197ae2c7de5c5ac19cafe36f1cc81",
+      "mtime_utc": "2026-11-03T15:05:20.018710+00:00"
+    }
+  ],
+  "sources": [
+    "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2024_1.zip",
+    "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py",
+    "https://davidmegginson.github.io/ourairports-data/airports.csv"
+  ]
+}

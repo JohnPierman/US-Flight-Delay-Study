@@ -1,0 +1,909 @@
+{
+  "months": [
+    {
+      "year": 2023,
+      "month": 1,
+      "master_rows": 538837,
+      "eligible_rows": 522278,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 522587
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 9982
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 2
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6266
+        }
+      ],
+      "forecast_matches": 199895,
+      "early_departures": 298682,
+      "train_rows": 522278,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 2,
+      "master_rows": 502749,
+      "eligible_rows": 488121,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 488324
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 8815
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 5610
+        }
+      ],
+      "forecast_matches": 196438,
+      "early_departures": 293289,
+      "train_rows": 488121,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 3,
+      "master_rows": 580322,
+      "eligible_rows": 566472,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 566724
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 7152
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6429
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 17
+        }
+      ],
+      "forecast_matches": 223845,
+      "early_departures": 310049,
+      "train_rows": 566472,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 4,
+      "master_rows": 561441,
+      "eligible_rows": 545832,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 546106
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 9311
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6024
+        }
+      ],
+      "forecast_matches": 209741,
+      "early_departures": 302669,
+      "train_rows": 545832,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 5,
+      "master_rows": 579958,
+      "eligible_rows": 570583,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 570701
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 3188
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6069
+        }
+      ],
+      "forecast_matches": 213677,
+      "early_departures": 336223,
+      "train_rows": 570583,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 6,
+      "master_rows": 577262,
+      "eligible_rows": 559378,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 559984
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 11607
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 5671
+        }
+      ],
+      "forecast_matches": 210937,
+      "early_departures": 279082,
+      "train_rows": 559378,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 7,
+      "master_rows": 601866,
+      "eligible_rows": 581339,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 581960
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 13979
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 5927
+        }
+      ],
+      "forecast_matches": 217305,
+      "early_departures": 279982,
+      "train_rows": 581339,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 8,
+      "master_rows": 602987,
+      "eligible_rows": 588139,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 588424
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 8886
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 5677
+        }
+      ],
+      "forecast_matches": 213071,
+      "early_departures": 330302,
+      "train_rows": 588139,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 9,
+      "master_rows": 569338,
+      "eligible_rows": 557869,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 558307
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 6618
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 4413
+        }
+      ],
+      "forecast_matches": 199370,
+      "early_departures": 335891,
+      "train_rows": 557869,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 10,
+      "master_rows": 598968,
+      "eligible_rows": 591880,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 592003
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 2016
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 4949
+        }
+      ],
+      "forecast_matches": 213000,
+      "early_departures": 369237,
+      "train_rows": 591880,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 11,
+      "master_rows": 563777,
+      "eligible_rows": 557099,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 557141
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 776
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 5851
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 9
+        }
+      ],
+      "forecast_matches": 199016,
+      "early_departures": 360472,
+      "train_rows": 557099,
+      "test_rows": 0
+    },
+    {
+      "year": 2023,
+      "month": 12,
+      "master_rows": 570394,
+      "eligible_rows": 561124,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 561234
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 2199
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6960
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 1
+        }
+      ],
+      "forecast_matches": 203646,
+      "early_departures": 345338,
+      "train_rows": 561124,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 1,
+      "master_rows": 547271,
+      "eligible_rows": 519961,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 520488
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 19858
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6925
+        }
+      ],
+      "forecast_matches": 209062,
+      "early_departures": 288345,
+      "train_rows": 519961,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 2,
+      "master_rows": 519221,
+      "eligible_rows": 509822,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 509946
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 2876
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6399
+        }
+      ],
+      "forecast_matches": 187885,
+      "early_departures": 329426,
+      "train_rows": 509822,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 3,
+      "master_rows": 591767,
+      "eligible_rows": 579300,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 579470
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 4945
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 34
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 7318
+        }
+      ],
+      "forecast_matches": 230895,
+      "early_departures": 339253,
+      "train_rows": 579300,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "master_rows": 582185,
+      "eligible_rows": 571428,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 571613
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 3848
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6724
+        }
+      ],
+      "forecast_matches": 227580,
+      "early_departures": 344979,
+      "train_rows": 571428,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "master_rows": 609743,
+      "eligible_rows": 594941,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 595207
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 7976
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6559
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 1
+        }
+      ],
+      "forecast_matches": 240343,
+      "early_departures": 311437,
+      "train_rows": 594941,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "master_rows": 611132,
+      "eligible_rows": 596960,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 597378
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 7456
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6298
+        }
+      ],
+      "forecast_matches": 214477,
+      "early_departures": 309906,
+      "train_rows": 596960,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "master_rows": 634613,
+      "eligible_rows": 609788,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 610302
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 17857
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6454
+        }
+      ],
+      "forecast_matches": 226340,
+      "early_departures": 295389,
+      "train_rows": 609788,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "master_rows": 619025,
+      "eligible_rows": 600672,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 601298
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 12083
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 5644
+        }
+      ],
+      "forecast_matches": 204089,
+      "early_departures": 336132,
+      "train_rows": 600672,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "master_rows": 582622,
+      "eligible_rows": 574715,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 574792
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 3421
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 4409
+        }
+      ],
+      "forecast_matches": 204154,
+      "early_departures": 377921,
+      "train_rows": 574715,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "master_rows": 615497,
+      "eligible_rows": 604309,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 604389
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 6202
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 4906
+        }
+      ],
+      "forecast_matches": 194751,
+      "early_departures": 403630,
+      "train_rows": 604309,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "master_rows": 575404,
+      "eligible_rows": 566674,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 566769
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 2532
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6095
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 8
+        }
+      ],
+      "forecast_matches": 207804,
+      "early_departures": 376206,
+      "train_rows": 566674,
+      "test_rows": 0
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "master_rows": 590581,
+      "eligible_rows": 578966,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 579201
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 3916
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 7464
+        }
+      ],
+      "forecast_matches": 218515,
+      "early_departures": 320794,
+      "train_rows": 578966,
+      "test_rows": 0
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "master_rows": 539747,
+      "eligible_rows": 516392,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 516776
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 15923
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 7048
+        }
+      ],
+      "forecast_matches": 191748,
+      "early_departures": 321447,
+      "train_rows": 0,
+      "test_rows": 516392
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "master_rows": 504884,
+      "eligible_rows": 490938,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 491202
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 7139
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6543
+        }
+      ],
+      "forecast_matches": 190242,
+      "early_departures": 300810,
+      "train_rows": 0,
+      "test_rows": 490938
+    },
+    {
+      "year": 2025,
+      "month": 3,
+      "master_rows": 600872,
+      "eligible_rows": 585989,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 586296
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 6609
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 7965
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 2
+        }
+      ],
+      "forecast_matches": 232213,
+      "early_departures": 362829,
+      "train_rows": 0,
+      "test_rows": 585989
+    },
+    {
+      "year": 2025,
+      "month": 4,
+      "master_rows": 583950,
+      "eligible_rows": 572018,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 572264
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 4667
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 7019
+        }
+      ],
+      "forecast_matches": 221102,
+      "early_departures": 355765,
+      "train_rows": 0,
+      "test_rows": 572018
+    },
+    {
+      "year": 2025,
+      "month": 5,
+      "master_rows": 605648,
+      "eligible_rows": 592939,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 593294
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 5987
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6367
+        }
+      ],
+      "forecast_matches": 232160,
+      "early_departures": 338597,
+      "train_rows": 0,
+      "test_rows": 592939
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "master_rows": 611575,
+      "eligible_rows": 595712,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 596243
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 9202
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6130
+        }
+      ],
+      "forecast_matches": 217066,
+      "early_departures": 305113,
+      "train_rows": 0,
+      "test_rows": 595712
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "master_rows": 631428,
+      "eligible_rows": 609568,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 610488
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 14549
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6391
+        }
+      ],
+      "forecast_matches": 213960,
+      "early_departures": 305579,
+      "train_rows": 0,
+      "test_rows": 609568
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "master_rows": 602378,
+      "eligible_rows": 590100,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 590434
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 6147
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 5795
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 2
+        }
+      ],
+      "forecast_matches": 205103,
+      "early_departures": 337041,
+      "train_rows": 0,
+      "test_rows": 590100
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "master_rows": 562439,
+      "eligible_rows": 555298,
+      "label_quality": [
+        {
+          "label_quality": "no_departure_delay",
+          "len": 2721
+        },
+        {
+          "label_quality": "clock_consistent",
+          "len": 555463
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 4255
+        }
+      ],
+      "forecast_matches": 188845,
+      "early_departures": 360121,
+      "train_rows": 0,
+      "test_rows": 555298
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "master_rows": 605844,
+      "eligible_rows": 597621,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 597759
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 3064
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 5021
+        }
+      ],
+      "forecast_matches": 201359,
+      "early_departures": 358984,
+      "train_rows": 0,
+      "test_rows": 597621
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "master_rows": 570550,
+      "eligible_rows": 550102,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 550356
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 13937
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 6252
+        },
+        {
+          "label_quality": "actual_clock_inconsistent_or_missing",
+          "len": 5
+        }
+      ],
+      "forecast_matches": 202819,
+      "early_departures": 339974,
+      "train_rows": 0,
+      "test_rows": 550102
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "master_rows": 582304,
+      "eligible_rows": 565809,
+      "label_quality": [
+        {
+          "label_quality": "clock_consistent",
+          "len": 566160
+        },
+        {
+          "label_quality": "no_departure_delay",
+          "len": 8646
+        },
+        {
+          "label_quality": "scheduled_timestamp_unresolved",
+          "len": 7498
+        }
+      ],
+      "forecast_matches": 226865,
+      "early_departures": 286699,
+      "train_rows": 0,
+      "test_rows": 565809
+    }
+  ],
+  "taf_failures": []
+}
