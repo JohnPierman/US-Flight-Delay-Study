@@ -2,6 +2,48 @@
 
 The final modeling dataset combines 2023–2025 BTS reporting-carrier flight records with airport metadata, historical airport weather observations, and archived destination aviation forecasts. Scheduled and actual local times were checked using airport time zones, elapsed times, and the signed BTS departure-delay outcome; eligible non-cancelled flights were retained for modeling. Weather observations are matched at or before a cutoff 60 minutes before scheduled departure, and destination forecasts must be issued by that cutoff and cover scheduled arrival. The data are stored in monthly Parquet partitions, with 2023–2024 designated for training and 2025 for testing. Forecast coverage is incomplete, historical schedule availability is assumed, and reconstructed aircraft connections are retained for retrospective analysis rather than strict prediction.
 
+<!-- EXPLORATORY SUMMARY START -->
+## Exploratory summary
+
+The figures use **20,420,136 eligible non-cancelled flights** in the 2023–2025 modeling dataset, not all scheduled flights. Delay is the signed BTS departure delay: negative values are early. These are unadjusted descriptions, not estimates of causal effects. Cancellations are included only in the annual scheduled-flight table below.
+
+| Statistic | Value |
+|---|---:|
+| Mean departure delay | 12.8 min |
+| Median departure delay | -2.0 min |
+| 90th percentile | 44.0 min |
+| Departed early (< 0 min) | 58.0% |
+| Departed at least 15 min late | 20.9% |
+
+![Distribution of departure delays](reports/figures/delay_distribution.png)
+
+All observed delays are included in the distribution; the first and last bars are open-ended. The 15-minute threshold is a descriptive convention.
+
+![Mean departure delay by scheduled local hour](reports/figures/delay_by_hour.png)
+
+Hours with fewer than 1,000 flights are omitted from the plot; the remaining overnight hours also have fewer flights than daytime hours.
+
+![Monthly mean departure delay](reports/figures/delay_by_month.png)
+
+| Year | Scheduled flights in master | Cancelled | Eligible flights | Mean delay (min) | Median delay (min) | ≥15 min late |
+|---|---:|---:|---:|---:|---:|---:|
+| 2023 | 6,847,899 | 87,943 (1.3%) | 6,690,114 | 12.2 | -2.0 | 20.5% |
+| 2024 | 7,079,061 | 96,315 (1.4%) | 6,907,536 | 12.6 | -2.0 | 20.6% |
+| 2025 | 7,001,619 | 102,876 (1.5%) | 6,822,486 | 13.5 | -2.0 | 21.7% |
+
+**Five busiest origin airports in the eligible sample**
+
+| Origin | Eligible departures | Mean delay (min) | ≥15 min late |
+|---|---:|---:|---:|
+| ATL | 982,089 | 12.2 | 21.3% |
+| DEN | 905,356 | 15.1 | 25.2% |
+| DFW | 895,723 | 18.0 | 26.6% |
+| ORD | 853,354 | 15.4 | 22.6% |
+| CLT | 599,982 | 16.0 | 24.1% |
+
+The master covers BTS reporting-carrier flights, not every flight. The modeling subset excludes cancellations and records without a clock-consistent delay; exclusions may affect these summaries. Flight mix, routes, and weather differ across airports and hours. Regenerate these figures and tables with `.venv/bin/python src/create_summary.py` (requires the local Parquet data).
+<!-- EXPLORATORY SUMMARY END -->
+
 ## Earlier smoke test
 
 The initial smoke-test implementation is limited to January 2024 flights where both endpoints are ATL, ORD, DFW, DEN or DSM. Do not generalize its coverage or tentative aircraft rotations to all U.S. flights. The BTS reporting-carrier dataset covers reporting domestic scheduled operations, not every U.S. flight. Filtered flights omit most aircraft histories, including flights outside these airports, non-reporting operations, international flights and repositioning.
