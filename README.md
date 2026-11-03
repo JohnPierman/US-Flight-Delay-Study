@@ -17,7 +17,7 @@ The figures use **20,420,136 eligible non-cancelled flights** in the 2023–2025
 
 ![Distribution of departure delays](reports/figures/delay_distribution.png)
 
-All observed delays are included in the distribution; the first and last bars are open-ended. The 15-minute threshold is a descriptive convention.
+The chart uses two-minute bins from −30 to under 120 minutes, with percentages calculated over all eligible flights. The unplotted tails contain 960 flights below −30 minutes (0.005%) and 609,906 flights at 120 minutes or more (2.99%). These flights remain included in the summary statistics and dataset.
 
 ![Mean departure delay by scheduled local hour](reports/figures/delay_by_hour.png)
 

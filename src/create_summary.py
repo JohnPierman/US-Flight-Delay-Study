@@ -20,18 +20,16 @@ def main():
     if len(paths)!=36 or len(masters)!=36:raise RuntimeError('Expected 36 complete modeling and master partitions.')
     f=pl.scan_parquet(paths, hive_partitioning=True).select('FlightDate','Origin','CRSDepTime','departure_delay_minutes','year','month')
     d=pl.col('departure_delay_minutes');hour=(pl.col('CRSDepTime').cast(pl.Int32,strict=False)//100)%24
-    basic=f.select(pl.len().alias('n'),d.mean().alias('mean'),d.median().alias('median'),d.quantile(.9).alias('p90'),(d<0).sum().alias('early'),(d>=15).sum().alias('late15')).collect(engine='streaming').row(0,named=True)
-    bounds=[-30,-15,0,15,30,60,120]
-    labels=['< −30','−30 to < −15','−15 to < 0','0 to < 15','15 to < 30','30 to < 60','60 to < 120','≥ 120']
-    category=pl.when(d<bounds[0]).then(pl.lit(0))
-    for i,b in enumerate(bounds[1:],1):category=category.when(d<b).then(pl.lit(i))
-    category=category.otherwise(pl.lit(len(bounds))).alias('bin')
-    bins=f.select(category).group_by('bin').len().sort('bin').collect(engine='streaming')
-    data={r['bin']:r['len'] for r in bins.to_dicts()}; n=basic['n']; values=[data.get(i,0)*100/n for i in range(len(labels))]
+    basic=f.select(pl.len().alias('n'),d.mean().alias('mean'),d.median().alias('median'),d.quantile(.9).alias('p90'),(d<0).sum().alias('early'),(d>=15).sum().alias('late15'),(d< -30).sum().alias('below_window'),(d>=120).sum().alias('above_window')).collect(engine='streaming').row(0,named=True)
+    # Two-minute bins cover [-30, 120); tails are counted separately below.
+    bins=(f.filter((d >= -30)&(d < 120)).select(((d/2).floor().cast(pl.Int32)*2).alias('bin')).group_by('bin').len().sort('bin').collect(engine='streaming'))
+    data={r['bin']:r['len'] for r in bins.to_dicts()}; n=basic['n']
+    edges=list(range(-30,120,2)); values=[data.get(i,0)*100/n for i in edges]
     plt.rcParams.update({'font.size':10,'axes.spines.top':False,'axes.spines.right':False,'figure.facecolor':'white'})
     fig,ax=plt.subplots(figsize=(10,4.6),layout='constrained')
-    bars=ax.bar(range(len(labels)),values,color=['#177e89']*3+['#7b91a5']+['#e49c46']*4)
-    ax.set_xticks(range(len(labels)),labels,rotation=32,ha='right');ax.set_ylabel('Share of eligible flights (%)');ax.set_xlabel('Departure delay (minutes)');ax.set_title('Distribution of departure delays, 2023–2025',loc='left',weight='bold');ax.bar_label(bars,labels=[('<0.1%' if 0 < v < 0.05 else f'{v:.1f}%') for v in values],padding=3,fontsize=8);ax.set_ylim(0,max(values)*1.2);ax.grid(axis='y',alpha=.2);ax.set_axisbelow(True)
+    ax.bar(edges,values,width=2,align='edge',color=['#177e89' if i<0 else '#e49c46' for i in edges],edgecolor='white',linewidth=.25)
+    ax.axvline(0,color='#384b56',linewidth=.8,alpha=.7)
+    ax.set_xlim(-30,120);ax.set_xticks(range(-30,121,15));ax.set_ylabel('Share of eligible flights per 2-minute bin (%)');ax.set_xlabel('Departure delay (minutes)');ax.set_title('Distribution of departure delays, 2023–2025',loc='left',weight='bold');ax.grid(axis='y',alpha=.2);ax.set_axisbelow(True)
     fig.savefig(OUT/'delay_distribution.png',dpi=170);plt.close(fig)
     hourly=f.with_columns(hour.alias('hour')).filter(pl.col('hour').is_not_null()).group_by('hour').agg(pl.len().alias('n'),d.mean().alias('mean'),(d>=15).mean().alias('late_rate')).sort('hour').collect(engine='streaming')
     fig,ax=plt.subplots(figsize=(9,4.2),layout='constrained'); ax.plot(hourly['hour'],[r['mean'] if r['n']>=1000 else float('nan') for r in hourly.to_dicts()],marker='o',lw=2,color='#177e89');ax.set_xticks(range(0,24,2));ax.set_xlabel('Scheduled departure hour (local airport time)');ax.set_ylabel('Mean departure delay (minutes)');ax.set_title('Departure delay by scheduled hour',loc='left',weight='bold');ax.grid(alpha=.2);fig.savefig(OUT/'delay_by_hour.png',dpi=170);plt.close(fig)
@@ -56,7 +54,7 @@ The figures use **{n:,} eligible non-cancelled flights** in the 2023–2025 mode
 
 ![Distribution of departure delays](reports/figures/delay_distribution.png)
 
-All observed delays are included in the distribution; the first and last bars are open-ended. The 15-minute threshold is a descriptive convention.
+The chart uses two-minute bins from −30 to under 120 minutes, with percentages calculated over all eligible flights. The unplotted tails contain {basic['below_window']:,} flights below −30 minutes ({100*basic['below_window']/n:.3f}%) and {basic['above_window']:,} flights at 120 minutes or more ({100*basic['above_window']/n:.2f}%). These flights remain included in the summary statistics and dataset.
 
 ![Mean departure delay by scheduled local hour](reports/figures/delay_by_hour.png)
 
