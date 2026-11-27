@@ -24,6 +24,31 @@ For a smaller end-to-end check, use a separate workspace. This downloads January
 
 Use `--workspace /path/to/workspace` without `--smoke` to place the full run elsewhere. Each workspace has its own `data/` and `reports/`. Cached downloads and completed partitions are reused; delete or archive a workspace only if you intend to rebuild it. The live data sources and airport metadata can be revised, so a fresh download may not reproduce earlier results byte for byte. BTS records are limited to reporting-carrier nonstop domestic flights, including eligible U.S. territories; they do not cover international flights or all carriers.
 
+The STAT4P87 development analysis prepares heat and prior-leg features, compares airport encodings and traffic buckets, and fits R linear baselines.
+
+## STAT4P87 baseline results
+
+The R baselines model signed departure delay in minutes. The preparation covers 13,597,650 eligible flights in 2023–2024. Each comparison uses 54,000 sampled flights across two chronological 2024 validation folds. The 2025 outcomes are reserved for final evaluation.
+
+| Question | Best airport and traffic inputs | CRPS without the exposure | CRPS with the exposure |
+|---|---|---:|---:|
+| Departure-airport heat | Departure latitude/longitude, daily | 16.560 | 16.561 |
+| Prior arrival delay, retrospective | Origin and destination latitude/longitude, weekly | 14.615 | 11.563 |
+| Prior arrival delay, inbound landed by cutoff | Origin and destination latitude/longitude, weekly | 8.013 | 8.019 |
+
+Lower continuous ranked probability score (CRPS) is better. Coordinates outperformed airport factors in all three pooled comparisons. With coordinates, changing the traffic bucket from daily to weekly moved CRPS by less than 0.001 in each comparison. Compare scores within each row because the cohorts differ.
+
+**Departure-airport heat.** Temperature, wind, visibility, and airport identity or coordinates all refer to the departure airport. In the coordinate/daily model, a 10 °C increase corresponded to a fitted delay shift of +0.12 minutes in January–June and −0.74 minutes in July–December. The curves for the fixed DFW departure nearly overlap.
+
+![Predicted departure-delay densities for a fixed DFW flight at 34.4, 36.1, and 38.9 degrees Celsius](reports/figures/heat_delay_density.png)
+
+**Prior arrival delay.** The retrospective model reduced the estimated rise in delay over the day by 61–64% after adding the inbound aircraft's arrival delay. In the subset whose inbound aircraft had landed by the one-hour cutoff, the reduction was about 3%. The fixed-flight diagnostic below uses the retrospective model.
+
+![Predicted departure-delay densities for a fixed DEN departure at three prior arrival delays](reports/figures/rotation_delay_density.png)
+
+Each plot varies one input and holds the other flight inputs fixed. The baseline shifts a shared residual density horizontally. See the [analysis plan and run commands](reports/model_readiness.md#stat4p87-analysis-plan) for the model specification, validation details, and caveats.
+
+
 ## Data quality and limitations
 
 The existing full run produced 20,928,579 scheduled-flight master records and 20,420,136 eligible modeling rows. Its final audit checks row identifiers, official BTS outcome values, weather and forecast cutoff times, destination station mapping, and the temporal split. The label consistency check reconstructs actual UTC using BTS's own delay and checks the local clock; it is not independent confirmation of the precise delay. Ambiguous local times and other unresolved records are excluded from the modeling dataset but retained in the master. Previous-flight links in the intermediate master are tentative and excluded from strict predictive features because historical aircraft-assignment availability is unknown.

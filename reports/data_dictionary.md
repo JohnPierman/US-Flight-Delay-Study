@@ -49,3 +49,17 @@ Fields with prefix `destination_forecast_` come from IEM's archived TAFs issued 
 | `presentwx`, `skyc`, `skyl` | Parsed present-weather, sky-coverage and sky-layer values as text; sky levels are feet. |
 
 Partition columns `year` and `month` may also appear when an Arrow reader opens the dataset as a Hive-partitioned directory. Schedule fields come from final BTS data; the historical availability of each schedule at cutoff is assumed, not established.
+
+## STAT4P87 development features
+
+The derived monthly files in `data/study` retain eligible 2023–2024 flights and the signed departure delay. Their source is the cached BTS, airport, and IEM intermediate data.
+
+| Field | Meaning and units |
+|---|---|
+| `flight_day`, `week_start` | Origin-local scheduled departure day and its Monday-start week. The original BTS `FlightDate` is retained. |
+| `minute_of_day` | Scheduled local departure minute on a 0–1439 scale. |
+| `origin_lat`, `origin_lon`, `dest_lat`, `dest_lon` | Airport coordinates in degrees from the project crosswalk. |
+| `traffic_daily`, `traffic_weekly` | Scheduled departures from the origin during the completed day before the local cutoff day, and mean scheduled departures per day during the completed Monday–Sunday week before the local cutoff week. |
+| `temperature_c`, `wind_speed_kt`, `visibility_m` | Origin weather observed by the prediction cutoff. Weather age is recorded in `weather_age_minutes`. |
+| `prior_delay`, `turn_minutes` | Signed prior arrival delay and scheduled turn time in minutes for tentative same-aircraft connections. |
+| `prior_known_at_cutoff` | The tentative inbound flight's reconstructed actual arrival is at or before the prediction cutoff. Historical tail assignment availability remains unverified. |
