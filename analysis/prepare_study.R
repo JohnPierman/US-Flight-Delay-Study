@@ -1,16 +1,19 @@
 # STAT4P87 flight-level preparation. Run from the repository root.
-# Arguments: cached data directory, weather directory, output directory.
+# Arguments: cached data directory, weather directory, output directory, optional final year.
 library(arrow)
 library(data.table)
 setDTthreads(2)
 
 args = commandArgs(trailingOnly = TRUE)
-if (length(args) != 3L) {
-  stop("Usage: Rscript analysis/prepare_study.R DATA_DIR WEATHER_DIR OUTPUT_DIR")
+if (!length(args) %in% c(3L, 4L)) {
+  stop("Usage: Rscript analysis/prepare_study.R DATA_DIR WEATHER_DIR OUTPUT_DIR [LAST_YEAR]")
 }
 data_dir = args[1]
 weather_dir = args[2]
 output_dir = args[3]
+last_year = if (length(args) == 4L) args[4] else "2024"
+if (!last_year %in% c("2024", "2025")) stop("LAST_YEAR must be 2024 or 2025.")
+last_day = as.IDate(paste0(last_year, "-12-31"))
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
 read_part = function(path, columns = NULL) {
@@ -22,7 +25,7 @@ monday = function(day) {
   day - (as.integer(day) + 3L) %% 7L
 }
 
-month_ids = format(seq(as.Date("2023-01-01"), as.Date("2024-12-01"), by = "month"), "%Y-%m")
+month_ids = format(seq(as.Date("2023-01-01"), as.Date(paste0(last_year, "-12-01")), by = "month"), "%Y-%m")
 paths = file.path(data_dir, "intermediate", "bts_flights",
                   paste0("year=", substr(month_ids, 1, 4)),
                   paste0("month=", substr(month_ids, 6, 7)), "flights.parquet")
@@ -31,7 +34,7 @@ if (!all(file.exists(paths))) stop("Missing development partitions: ", paste(mon
 airports = read_part(file.path(data_dir, "intermediate", "airport_metadata.parquet"))
 stopifnot(!anyDuplicated(airports$code))
 
-weather_paths = unlist(lapply(2022:2024, function(year) {
+weather_paths = unlist(lapply(2022:as.integer(last_year), function(year) {
   list.files(file.path(weather_dir, paste0("year=", year)), "[.]parquet$", full.names = TRUE)
 }))
 if (!length(weather_paths)) stop("No cached station observations found.")
@@ -45,7 +48,7 @@ weather = weather[!duplicated(weather, by = c("station", "weather_seconds")) &
 setkey(weather, station, weather_seconds)
 fwrite(data.table(station_file = weather_paths), file.path(output_dir, "weather_inputs.csv"))
 
-study_days = as.IDate(seq(as.Date("2023-01-01"), as.Date("2024-12-31"), by = "day"))
+study_days = as.IDate(seq(as.Date("2023-01-01"), as.Date(last_day), by = "day"))
 iso_days = format(study_days, "%Y-%m-%d")
 parse_days = function(x) study_days[match(x, iso_days)]
 
@@ -112,7 +115,7 @@ prepare_month = function(flights, neighbors) {
   eligible[, prior_day := as.IDate(as.POSIXct(prior_sched, origin = "1970-01-01", tz = "UTC"),
                                   tz = origin_tz[1]), by = origin_tz]
   eligible[is.na(prior_day) | prior_day != flight_day | turn_minutes < 0 | turn_minutes > 720 |
-             flight_day <= as.IDate("2023-01-01") | flight_day >= as.IDate("2024-12-31"),
+             flight_day <= as.IDate("2023-01-01") | flight_day >= last_day,
            c("prior_delay", "prior_actual", "turn_minutes") := .(NA_real_, NA_real_, NA_real_)]
   eligible[, prior_known_at_cutoff := !is.na(prior_actual) & prior_actual <= cutoff_seconds]
 

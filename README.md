@@ -1,6 +1,6 @@
 # STAT 4P87 U.S. flight delay study
 
-The modeling dataset combines 2023–2025 BTS reporting-carrier domestic flights with airport metadata, historical observations and archived destination aviation forecasts. The signed BTS departure delay is the outcome. Weather is matched at or before a prediction cutoff 60 minutes before scheduled departure; destination forecasts must be issued by that cutoff and cover scheduled arrival. Eligible non-cancelled flights are stored as one partitioned Parquet dataset, with 2023–2024 designated for training and 2025 for testing. Flight schedules and weather delivery times have historical-availability limitations described below.
+The modeling dataset combines 2023–2025 BTS reporting-carrier domestic flights with airport metadata, historical observations and archived destination aviation forecasts. The signed BTS departure delay is the outcome. Weather is matched at or before a prediction cutoff 60 minutes before scheduled departure; destination forecasts must be issued by that cutoff and cover scheduled arrival. Eligible non-cancelled flights are stored as one partitioned Parquet dataset, with legacy labels for the original 2023–2024 training period and 2025 test period. Flight schedules and weather delivery times have historical-availability limitations described below.
 
 ## Regenerate the dataset
 
@@ -26,9 +26,23 @@ Use `--workspace /path/to/workspace` without `--smoke` to place the full run els
 
 The STAT4P87 development analysis prepares heat and prior-leg features, compares airport encodings and traffic buckets, and fits R linear baselines.
 
+
+## Three-year cross-validation
+
+The current analysis uses five-fold cross-validation over **2023–2025**. Whole calendar weeks stay in the same fold, and assignments are balanced within each year and quarter. The prep pipeline processes all eligible flights. The model evaluation uses a reproducible monthly sample from all 36 months for each of the three study cohorts.
+
+- [Team write-up and results](reports/three-year-study-update.md)
+- [Data download, R dependencies, and run instructions](reports/model_readiness.md#reproduce-the-data-and-analysis)
+- [Fold balance](reports/figures/three-year-cv/cv_fold_balance.png) and [linear versus forest scores by fold](reports/figures/three-year-cv/cv_scores.png)
+- [Airport and traffic configurations](reports/figures/three-year-cv/cv_configurations.png) and [predictor contribution](reports/figures/three-year-cv/cv_exposure.png)
+- [Intraday comparison](reports/figures/three-year-cv/cv_intraday.png), [30-minute delay calibration](reports/figures/three-year-cv/cv_calibration.png), and [prediction interval coverage](reports/figures/three-year-cv/cv_interval_coverage.png)
+- [Departure heat density](reports/figures/three-year-cv/forest_heat_density.png), [retrospective inbound density](reports/figures/three-year-cv/forest_rotation_density.png), and [cutoff-only inbound density](reports/figures/three-year-cv/forest_cutoff_density.png)
+
+The chronological baselines below are retained as historical comparisons. The grouped folds measure performance on unseen historical weeks within the three-year period.
+
 ## STAT4P87 baseline results
 
-The R baselines model signed departure delay in minutes. The preparation covers 13,597,650 eligible flights in 2023–2024. Each comparison uses 54,000 sampled flights across two chronological 2024 validation folds. The 2025 outcomes are reserved for final evaluation.
+The R baselines model signed departure delay in minutes. The preparation covers 13,597,650 eligible flights in 2023–2024. Each comparison uses 54,000 sampled flights across two chronological 2024 validation folds. That chronological baseline used outcomes through 2024.
 
 | Question | Best airport and traffic inputs | CRPS without the exposure | CRPS with the exposure |
 |---|---|---:|---:|
@@ -47,6 +61,23 @@ Lower continuous ranked probability score (CRPS) is better. Coordinates outperfo
 ![Predicted departure-delay densities for a fixed DEN departure at three prior arrival delays](reports/figures/rotation_delay_density.png)
 
 Each plot varies one input and holds the other flight inputs fixed. The baseline shifts a shared residual density horizontally. See the [analysis plan and run commands](reports/model_readiness.md#stat4p87-analysis-plan) for the model specification, validation details, and caveats.
+
+
+## Nonlinear delay distributions
+
+The quantile regression forest estimates a probability distribution over signed departure-delay minutes. The evaluation pairs each forest with the linear model using the same airport and traffic inputs and the same 54,000 validation flights per cohort. Lower CRPS is better. That chronological forest run also used outcomes through 2024.
+
+| Cohort | Airport and traffic inputs | Linear CRPS | Forest CRPS | Forest 90% interval coverage |
+|---|---|---:|---:|---:|
+| Departure-airport heat | Departure coordinates, weekly | 16.56 | 15.02 | 90.9% |
+| Prior arrival delay, retrospective | Airport factors, daily | 11.66 | 8.86 | 92.9% |
+| Prior arrival delay, inbound landed by cutoff | Coordinates, weekly | 8.02 | 7.36 | 91.1% |
+
+- **Heat.** Adding departure-airport temperature improved CRPS by 0.007 in the first fold and worsened it by 0.010 in the second. The forest's better overall predictions give little evidence of incremental predictive value from heat.
+- **Inbound delay.** Adding prior arrival delay reduced the model's 5 p.m. versus 10 a.m. delay contrast by 60–62% in the retrospective cohort and by 9–12% in the cutoff-only cohort. These are model-based associations.
+- **Diagnostics.** Each fixed-flight chart pairs a smoothed density with the estimated chances of reaching 15, 30, and 60 minutes of delay. See [departure heat](reports/figures/forest_heat_density.png), [retrospective inbound delay](reports/figures/forest_rotation_density.png), and [inbound delay by cutoff](reports/figures/forest_cutoff_density.png). The [intraday comparison](reports/figures/forest_intraday.png) and [probability calibration](reports/figures/forest_calibration.png) show the validation diagnostics. The retrospective model understates 30-minute delay risk in the higher-probability bins.
+
+See the [forest methods and R run commands](reports/model_readiness.md#stat4p87-quantile-regression-forest).
 
 
 ## Data quality and limitations

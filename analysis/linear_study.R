@@ -6,111 +6,9 @@ setDTthreads(2)
 args = commandArgs(trailingOnly = TRUE)
 if (length(args) != 2L) stop("Usage: Rscript analysis/linear_study.R PREPARED_DIR OUTPUT_DIR")
 dir.create(args[2], recursive = TRUE, showWarnings = FALSE)
-months = format(seq(as.Date("2023-01-01"), as.Date("2024-12-01"), by = "month"), "%Y-%m")
-paths = file.path(args[1], paste0("flights-", months, ".parquet"))
-if (!all(file.exists(paths))) stop("Run prepare_study.R before fitting.")
-set.seed(487)
-sample_rows = function(data, n) {
-  data[sample.int(nrow(data), min(nrow(data), n))]
-}
-samples = lapply(paths, function(path) {
-  flights = setDT(read_parquet(path))
-  setorder(flights, flight_id)
-  flights = flights[complete.cases(traffic_daily, traffic_weekly, origin_lat, origin_lon,
-                                  Distance, Reporting_Airline)]
-  flights[, flight_day := as.IDate(flight_day)]
-  flights[, calendar_month := format(flight_day, "%m")]
-  flights[, month_sin := sin(2 * pi * as.integer(calendar_month) / 12)]
-  flights[, month_cos := cos(2 * pi * as.integer(calendar_month) / 12)]
-  flights[, weekday := as.integer(flight_day + 3L) %% 7L]
-  flights[, distance_1000 := Distance / 1000]
-  flights[, c("origin_lon", "dest_lon") := lapply(.SD, function(x) (x + 240) %% 360 - 240),
-          .SDcols = c("origin_lon", "dest_lon")]
-  rotation = flights[complete.cases(dest_lat, dest_lon)]
-  list(heat = sample_rows(flights[is.finite(temperature_c)], 4500),
-       rotation = sample_rows(rotation[is.finite(prior_delay)], 4500),
-       cutoff = sample_rows(rotation[prior_known_at_cutoff == TRUE], 4500))
-})
-cohorts = lapply(c("heat", "rotation", "cutoff"), function(question) {
-  rbindlist(lapply(samples, "[[", question))
-})
-names(cohorts) = c("heat", "rotation", "cutoff")
-rm(samples)
+source("analysis/study_inputs.R")
+cohorts = read_study_cohorts(args[1])
 
-# Learn rare-level pooling and weather medians from each fitting period only.
-prepare_sets = function(train, calibration, validation, question) {
-  sets = lapply(list(train, calibration, validation), copy)
-  for (column in c("Origin", "Reporting_Airline", if (question != "heat") "Dest")) {
-    counts = table(train[[column]])
-    keep = names(counts)[counts >= 75]
-    if (length(keep) == length(counts) && length(keep) > 1) {
-      keep = setdiff(keep, names(which.min(counts)))
-    }
-    for (data in sets) {
-      value = data[[column]]
-      value[!value %in% keep] = "OTHER"
-      set(data, j = paste0(column, "_group"), value = factor(value, levels = unique(c(keep, "OTHER"))))
-    }
-  }
-  for (column in c("temperature_c", "wind_speed_kt", "visibility_m")) {
-    center = median(train[[column]][is.finite(train[[column]])])
-    if (!is.finite(center)) center = 0
-    for (data in sets) {
-      value = data[[column]]
-      missing = !is.finite(value)
-      value[missing] = center
-      set(data, j = paste0(column, "_missing"), value = as.integer(missing))
-      set(data, j = column, value = value)
-    }
-  }
-  for (data in sets) {
-    data[, hour := minute_of_day / 60]
-    data[, temperature_10 := temperature_c / 10]
-    data[, prior_delay_30 := prior_delay / 30]
-    data[, turn_hours := turn_minutes / 60]
-    data[, traffic_day_100 := traffic_daily / 100]
-    data[, traffic_week_100 := traffic_weekly / 100]
-    data[, visibility_km := visibility_m / 1000]
-    data[, c("calendar_month", "weekday") := lapply(.SD, factor), .SDcols = c("calendar_month", "weekday")]
-  }
-  if (question == "heat") stopifnot(all(sets[[1]]$temperature_c_missing == 0))
-  sets
-}
-
-fit_baseline = function(train, question, airports, bucket, include_exposure) {
-  terms = c("hour", "distance_1000", "Reporting_Airline_group", "month_sin", "month_cos", "weekday",
-            "wind_speed_kt", "wind_speed_kt_missing", "visibility_km", "visibility_m_missing")
-  terms = c(terms, if (bucket == "daily") "traffic_day_100" else "traffic_week_100")
-  terms = c(terms, if (airports == "factors") "Origin_group" else c("origin_lat", "origin_lon"))
-  if (question != "heat") {
-    terms = c(terms, if (airports == "factors") "Dest_group" else c("dest_lat", "dest_lon"),
-              "temperature_10", "temperature_c_missing", "turn_hours")
-  }
-  if (include_exposure) terms = c(terms, if (question == "heat") "temperature_10" else "prior_delay_30")
-  terms = terms[vapply(train[, ..terms], uniqueN, integer(1)) > 1L]
-  lm(reformulate(terms, response = "departure_delay_minutes"), data = train)
-}
-
-# CRPS of the empirical predictive CDF. Prefix sums avoid a matrix of pairwise distances.
-distribution_scores = function(actual, prediction, residual) {
-  residual = sort(residual)
-  n = length(residual)
-  error = actual - prediction
-  k = findInterval(error, residual)
-  prefix = c(0, cumsum(residual))
-  distance = ((2 * k - n) * error + prefix[n + 1L] - 2 * prefix[k + 1L]) / n
-  pairwise_half = sum((2 * seq_len(n) - n - 1) * residual) / n^2
-  interval = unname(quantile(residual, c(0.05, 0.95)))
-  c(n = length(error), MAE = mean(abs(error)), RMSE = sqrt(mean(error^2)),
-    CRPS = mean(distance - pairwise_half),
-    coverage90 = mean(error >= interval[1] & error <= interval[2]))
-}
-
-folds = data.table(fold = c("Jan-Jun 2024", "Jul-Dec 2024"),
-                   calibration_from = as.IDate(c("2023-11-01", "2024-05-01")),
-                   validation_from = as.IDate(c("2024-01-01", "2024-07-01")),
-                   validation_until = as.IDate(c("2024-07-01", "2025-01-01")))
-variants = CJ(airports = c("factors", "coordinates"), bucket = c("daily", "weekly"))
 rows = list()
 for (question in names(cohorts)) {
   data = cohorts[[question]]
@@ -124,7 +22,7 @@ for (question in names(cohorts)) {
       airport = variants$airports[v]
       bucket = variants$bucket[v]
       for (full in c(FALSE, TRUE)) {
-        model = fit_baseline(sets[[1]], question, airport, bucket, full)
+        model = lm(study_formula(sets[[1]], question, airport, bucket, full), data = sets[[1]])
         residual = calibration$departure_delay_minutes - predict(model, sets[[2]])
         prediction = predict(model, sets[[3]])
         exposure = if (question == "heat") "temperature_10" else "prior_delay_30"
@@ -157,7 +55,7 @@ plot_density = function(question, selected, data) {
   profiles = if (question == "heat") data[flight_day >= as.IDate("2024-06-01") &
                                            flight_day < as.IDate("2024-09-01")] else calibration
   sets = prepare_sets(train, calibration, profiles, question)
-  model = fit_baseline(sets[[1]], question, selected$airport, selected$bucket, TRUE)
+  model = lm(study_formula(sets[[1]], question, selected$airport, selected$bucket, TRUE), data = sets[[1]])
   residual = calibration$departure_delay_minutes - predict(model, sets[[2]])
 
   reference = copy(sets[[3]])

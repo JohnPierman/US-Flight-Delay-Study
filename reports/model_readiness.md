@@ -1,6 +1,6 @@
 # Forecast-enriched departure-delay data
 
-The output is partitioned Parquet under `data/processed/history/flights_model_ready`, with one row per eligible non-cancelled flight. `departure_delay_minutes` is the official BTS DepDelay: positive = late, negative = early. The 2023–24 rows are labelled `train_2023_2024`, and 2025 `test_2025`; tuning must use a time-ordered validation interval inside 2023–24 and must leave 2025 untouched until final evaluation. Chronological separation is based on BTS FlightDate (local scheduled departure date).
+The output is partitioned Parquet under `data/processed/history/flights_model_ready`, with one row per eligible non-cancelled flight. `departure_delay_minutes` is the official BTS DepDelay: positive = late, negative = early. The 2023–24 rows are labelled `train_2023_2024`, and 2025 `test_2025`. Those labels describe the original chronological workflow. The current three-year cross-validation uses the same years under a separate week-based fold assignment. Chronological separation is based on BTS FlightDate (local scheduled departure date).
 
 Only rows with a nonmissing BTS delay and a clock-consistent reconstructed UTC departure are included. Scheduled departure and elapsed time are resolved using airport-coordinate time zones. Actual UTC departure is computed as scheduled UTC plus BTS DepDelay, then checked against BTS's actual departure local clock. This check is not independent verification of the day or the magnitude of a delay differing by an exact whole number of days. Ambiguous/nonexistent scheduled local times, unknown time zones and clock mismatches are excluded; departures that occurred despite a recorded cancellation are also excluded. The complete master retains these records. Exclusions can affect representativeness and must be reported.
 
@@ -23,6 +23,8 @@ The 36 master partitions contain 20,928,579 scheduled records. The candidate mod
 There were 0 reported TAF acquisition failures. Audit verified unique IDs per monthly partition, equality with the original BTS DepDelay, non-cancelled outcomes, split dates, observation cutoffs, forecast issue/validity times and destination station consistency. Run `.venv/bin/python src/main.py` to repeat the complete workflow and audit; detailed field null rates are in `model_validation.json`. This audit checks the stored data and does not independently verify BTS source measurements or prove historical data delivery.
 
 ## STAT4P87 analysis plan
+
+This section documents the earlier chronological workflow. The current workflow is described under [three-year cross-validation](#three-year-cross-validation).
 
 1. **Outcome.** Model the full distribution of signed departure delay in minutes for eligible non-cancelled flights. This measures schedule deviation at departure. A taxi-out, security, or passenger wait is a different outcome. The observed BTS values have minute resolution. A smoothed density is used to display the distribution, and an empirical predictive CDF is used for scoring.
 2. **Heat.** Use the origin air temperature observed within an hour before the one-hour-ahead prediction cutoff. Compare models with and without temperature on the same flights with measured temperature. Control for origin weather (wind and visibility), local departure time, calendar, carrier, departure airport, route distance, and scheduled traffic. Interpret the coefficient per 10 °C and plot several locally observed temperatures for a fixed flight profile. Airport weather coverage and the association with season limit interpretation.
@@ -60,3 +62,78 @@ All 24 development partitions contain 13,597,650 eligible flights. Of these, 9,9
 - **Retrospective rotation.** In the coordinate/weekly specification, adding prior arrival delay lowered pooled CRPS from 14.615 to 11.563 and reduced the departure-hour slope by 61–64% across both folds. This meets the study's descriptive attenuation benchmark within the retrospective linked cohort.
 - **Cutoff sensitivity.** For flights whose inbound leg had already arrived by the cutoff, the coordinate/weekly specification reduced the departure-hour slope by 2.5–3.0%. Pooled CRPS was 8.013 without prior arrival delay and 8.019 with it in this subset. The subset reflects different turn lengths and arrival timing. The two rotation results describe associations within their own populations.
 - **Distribution diagnostics.** The nominal 90% intervals covered about 83–84% in the first validation fold and 92–93% in the second for the selected specifications. The linear baseline holds its residual shape fixed across profiles and seasons. The density plots zoom in on the main range of delays. The scores include all sampled validation rows.
+
+## STAT4P87 quantile regression forest
+
+This section describes the forest and its first chronological evaluation.
+
+The forest uses the numeric signed delay in minutes as its response. Regression trees learn which flights to group together. Each leaf contributes a normalized distribution of the observed delays in that leaf, and the flight forecast averages those distributions over the trees. The resulting probability mass function preserves the resolution of the recorded delays. The displayed PDF is a Gaussian-kernel-smoothed version of that mass, with a shared 2.5-minute bandwidth. Threshold probabilities, interval coverage, and CRPS use the unsmoothed distribution.
+
+The model follows the regression forest framework in STAT4P87 *Ensemble Methods*, slides 18–21, and uses the conditional distribution extension from [Meinshausen (2006)](https://jmlr.org/papers/v7/meinshausen06a.html). The R implementation uses [ranger](https://cran.r-project.org/package=ranger) for tree fitting and terminal-node assignments. The empirical distribution uses every fitting observation that reaches a leaf and gives every tree equal weight.
+
+- **Comparison design.** The forest and linear baseline share flight samples, preprocessing, predictors, fitting windows, and 2024 validation folds. Within each cohort, compare both airport encodings and both traffic buckets, each with and without the exposure. The heat models use weather and geography at the departure airport. The rotation models retain both endpoints.
+- **Tuning.** For each cohort and fold, compare minimum leaf sizes of 25 and 80 using earlier calibration observations and the coordinate/daily specification. The outer validation fits use 128 trees. Use the first calibration period to select the airport and traffic specification displayed for each cohort. All specification scores are retained. The saved diagnostic models refit through October 2024 and tune on November–December 2024. The 2025 outcomes remain reserved.
+- **Interpretation.** The fixed-flight plots vary departure temperature or inbound arrival delay over locally observed values. The cutoff plot also requires that the hypothetical inbound arrival remain feasible by the model cutoff. The intraday comparison sets the same sampled profiles to 10 a.m. and 5 p.m. within airports and months with data in both time bands. It measures how the fitted mean-delay contrast changes when inbound delay is included. The difference describes a model association. The retrospective cohort and the subset that landed by cutoff each have their own comparisons.
+- **Validation.** Lower CRPS is better. Score the forest against the linear model on the same rows for each specification. Also check 90% interval coverage and the reliability of the probability of a departure delay of 30 minutes or more.
+
+### Run in R
+
+Install `ranger` and `Matrix` alongside the packages used for the linear analysis. From the repository root, use the prepared monthly partitions and the linear fold results.
+
+```sh
+Rscript analysis/forest_study.R data/study data/study-results data/forest-results
+```
+
+The output includes the saved forests and their preprocessing, forest and linear comparison scores, exposure ablations, intraday contrasts, probability calibration, and fixed-flight density plots. To get a numeric probability from a saved model, pass rows with the schema produced by `analysis/prepare_study.R` to `predict_delay_distribution()`.
+
+```r
+library(data.table)
+source("analysis/study_inputs.R")
+source("analysis/delay_forest.R")
+
+artifact = readRDS("data/forest-results/models/heat.rds")
+forecast = predict_delay_distribution(artifact, flights)
+p_at_least_30_min = Matrix::colSums(
+  forecast$probability[forecast$minutes >= 30, , drop = FALSE]
+)
+```
+
+### Forest development results
+
+Across the displayed configurations, matched forest versus linear CRPS was 15.017 versus 16.561 for heat, 8.864 versus 11.656 for retrospective rotation, and 7.364 versus 8.019 for rotation by cutoff. Forest 90% interval coverage was 90.9%, 92.9%, and 91.1% respectively. The retrospective reliability plot shows underprediction of 30-minute delay risk in its higher-probability bins.
+
+- In the heat comparison, departure-airport temperature reduced CRPS by 0.007 in January–June and raised it by 0.010 in July–December. The two folds give little evidence of incremental predictive value from temperature.
+- In the retrospective rotation comparison, including prior arrival delay reduced CRPS from 13.368 to 8.864. It reduced the adjusted 5 p.m. versus 10 a.m. difference in fitted mean delay by 60–62%. For the cutoff-only cohort, prior delay reduced CRPS from 7.384 to 7.364 and reduced the intraday contrast by 9–12%.
+
+## Three-year cross-validation
+
+The current STAT4P87 evaluation uses **five-fold cross-validation across 2023–2025**. Each fold holds out whole Monday-start weeks. Within each calendar year and quarter, weeks are shuffled and spread across the five folds with a fixed seed. This is the grouped version of the course's shuffled fold assignment. Stratifying on the calendar balances seasons while keeping flights that share weather and operational disruptions together. Each sampled flight contributes one out-of-fold prediction per model specification. This evaluates performance on other weeks from the same historical period. A test of future-year performance would need a later, untouched period.
+
+### Reproduce the data and analysis
+
+Run these commands from the repository root. Activate a Python 3.11+ virtual environment before installing the project (for example, `python -m venv .venv`, then `source .venv/bin/activate` on macOS/Linux or `./.venv/Scripts/Activate.ps1` in PowerShell). The two collection steps reuse cached files and need network access for uncached data. They fetch BTS flight records, airport coordinates and IEM station observations. Archived destination forecasts are used by the older end-to-end pipeline. The current analysis uses departure-airport observations.
+
+```sh
+python -m pip install -e .
+python src/collect_history.py
+python src/collect_weather_history.py
+```
+
+In R, install the required packages once.
+
+```r
+install.packages(c("arrow", "data.table", "tidyselect", "ranger", "Matrix"))
+```
+
+Then prepare the full 36 monthly partitions and run the cross-validation.
+
+```sh
+Rscript analysis/prepare_study.R data data/intermediate/weather data/study-three-year 2025
+Rscript analysis/study_cv.R data/study-three-year data/three-year-cv 1800
+```
+
+The prepare command processes all eligible source flights. For the forest comparison, the last argument sets the maximum sampled rows per month **per cohort**. The reported run uses 1,800, with all 36 months represented in each cohort. Higher values increase runtime and memory use. The three cohorts are departure-airport heat, retrospective aircraft rotation, and rotation with the prior arrival available by cutoff. The same sampled rows are used for competing specifications within each cohort. Different cohorts can contain the same flight.
+
+The forest uses 64 trees with a fixed minimum leaf size of 50 for heat and 25 for the two rotation cohorts. Headline airport and traffic configurations come from the previous comparison and are fixed before assigning results. Other airport/traffic combinations are scored as full-model sensitivity checks. Exposure removal and the linear comparison use the headline specifications. The linear residual distribution is estimated on a separate week fold within each outer training set. Feature preprocessing and model fits use only each outer training set. The three saved forest models are then refit on all sampled years.
+
+The output directory contains week and flight fold assignments, fold-level and pooled scores, calibration bins, intraday contrasts, density-profile probabilities, plots, and the refit R models. See the [team write-up](three-year-study-update.md) for the results and the [README](../README.md#three-year-cross-validation) for the plot index.
