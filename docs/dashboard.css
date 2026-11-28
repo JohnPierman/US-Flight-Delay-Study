@@ -119,3 +119,27 @@ footer a { flex-shrink: 0; }
   .chart-note { grid-row: 4; margin: 0 2px; }
   .stats { grid-row: 5; margin: 0; border: 1px solid var(--line); border-radius: 12px; }
 }
+#all-field { min-width: 0; }
+#all-controls { display: grid; gap: 7px; margin-top: 12px; }
+.advanced-group { border: 1px solid #d6e4e7; background: #f8fbfb; border-radius: 8px; }
+.advanced-group summary { cursor: pointer; font-size: .84rem; font-weight: 680; padding: 9px 10px; }
+.advanced-control { padding: 9px 10px 12px; border-top: 1px solid #e4edef; }
+.advanced-control .slider-heading label { font-size: .78rem; }
+.advanced-control .select-label { margin: 0; }
+.advanced-control select { margin-top: 4px; background: white; }
+.advanced-control .slider-heading { column-gap: 4px; }
+.advanced-control output { font-size: .74rem; }
+.advanced-control input:disabled { opacity: .45; cursor: default; }
+.missing-switch { display: flex; align-items: center; gap: 5px; color: var(--muted); font-size: .72rem; margin-top: 7px; cursor: pointer; }
+.missing-switch input { accent-color: var(--teal); margin: 0; }
+.scenario-warning { color: #783625; background: #fff0e7; margin: 0 0 11px; padding: 8px 10px; border-radius: 7px; font-size: .8rem; }
+.control-actions button:disabled { opacity: .5; cursor: default; }
+@media (min-width: 676px) {
+  .workspace.advanced .results { position: sticky; top: 12px; }
+}
+@media (max-width: 675px) {
+  .scenario-warning { grid-row: 4; margin: 0; }
+  .chart-note { grid-row: 5; }
+  .stats { grid-row: 6; }
+  .tabs button { padding-inline: 10px; }
+}

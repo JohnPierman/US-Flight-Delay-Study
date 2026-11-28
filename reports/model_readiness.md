@@ -152,3 +152,12 @@ python -m http.server 8765 --directory docs
 ```
 
 Open `http://localhost:8765` to preview. The export keeps fixed flight profiles, evaluates the forest at each supported slider setting, and writes the model summaries to a static asset. It uses a 2.5-minute Gaussian kernel for the displayed density and the original probability mass for threshold probabilities and prediction intervals. The inbound slider range depends on scheduled departure time and, in the cutoff cohort, the scheduled turn and one-hour prediction cutoff. GitHub Pages publishes the `docs/` directory from the `main` branch.
+
+For the **All inputs** tab, export the same fitted tree splits, factor ordering, and leaf delay counts into the browser model assets. The optional QA directory stores local prediction fixtures for verifying the browser against R.
+
+```sh
+Rscript analysis/export_forest_controls.R data/study-three-year data/three-year-cv docs data/forest-browser-qa
+node analysis/check_browser_forest.mjs docs data/forest-browser-qa
+```
+
+The All inputs tab evaluates the selected forest locally and allows arbitrary combinations within each control's range. Controls use the middle 98% of the fitting values plus the starting flight value. Month updates the two seasonal terms together. A weather observation marked missing uses its fitted imputation value and the corresponding missingness indicator. The cutoff model also checks that the edited inbound delay fits the one-hour cutoff given the scheduled turnaround.

@@ -31,7 +31,7 @@ The STAT4P87 development analysis prepares heat and prior-leg features, compares
 
 The current analysis uses five-fold cross-validation over **2023–2025**. Whole calendar weeks stay in the same fold, and assignments are balanced within each year and quarter. The prep pipeline processes all eligible flights. The model evaluation uses a reproducible monthly sample from all 36 months for each of the three study cohorts.
 
-- [Interactive Flight Delay Explorer](https://johnpierman.github.io/US-Flight-Delay-Study/)
+- [Interactive Flight Delay Explorer with All inputs controls](https://johnpierman.github.io/US-Flight-Delay-Study/)
 - [One-page technical handoff](reports/three-year-study-update.md)
 - [Data download, R dependencies, and run instructions](reports/model_readiness.md#reproduce-the-data-and-analysis)
 - [Fold balance](reports/figures/three-year-cv/cv_fold_balance.png) and [linear versus forest scores by fold](reports/figures/three-year-cv/cv_scores.png)

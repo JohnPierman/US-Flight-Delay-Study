@@ -6,7 +6,7 @@
   <meta name="description" content="Explore how departure heat, time of day, and inbound delay change a fitted flight delay distribution.">
   <title>Flight Delay Explorer | STAT4P87</title>
   <link rel="stylesheet" href="dashboard.css">
-  <script src="dashboard.js" defer></script>
+  <script src="dashboard.js" type="module"></script>
 </head>
 <body>
   <header class="masthead">
@@ -25,6 +25,7 @@
     <div class="tabs" role="group" aria-label="Study question">
       <button type="button" id="heat-tab" aria-pressed="true">Departure heat</button>
       <button type="button" id="inbound-tab" aria-pressed="false">Inbound delay</button>
+      <button type="button" id="all-tab" aria-pressed="false">All inputs</button>
     </div>
     <noscript><p class="notice">Enable JavaScript to use the interactive explorer.</p></noscript>
     <p id="status" class="notice" role="status">Loading forest predictions…</p>
@@ -36,6 +37,15 @@
           <p id="profile"></p>
         </div>
         <div class="control-fields">
+          <div id="all-field" hidden>
+            <label for="all-model" class="select-label">Fitted forest</label>
+            <select id="all-model">
+              <option value="heat">Departure heat</option>
+              <option value="rotation">Retrospective inbound</option>
+              <option value="cutoff">Inbound arrived by cutoff</option>
+            </select>
+            <div id="all-controls"></div>
+          </div>
           <div id="mode-field" hidden>
             <label for="mode" class="select-label">Inbound cohort</label>
             <select id="mode">
@@ -89,6 +99,7 @@
           <canvas id="density" role="img" aria-label="Current and reference probability density curves for departure delay, from 30 minutes early to 180 minutes late." aria-describedby="chart-note"></canvas>
           <div id="tooltip" class="tooltip" aria-hidden="true" hidden></div>
         </div>
+        <p class="scenario-warning" id="scenario-warning" role="status" hidden></p>
         <p class="chart-note" id="chart-note">Negative minutes indicate an early departure. The plot shows −30 to 180 minutes.</p>
         <dl class="stats" aria-live="polite">
           <div><dt>Median delay</dt><dd id="median"></dd><dd class="stat-reference" id="median-reference"></dd></div>

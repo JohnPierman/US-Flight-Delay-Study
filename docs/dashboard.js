@@ -1,7 +1,7 @@
-"use strict";
+import { createForestControls } from "./forest-controls.mjs";
 
 const element = id => document.getElementById(id);
-const state = { dataset: null, question: "heat", mode: "rotation", views: {}, hover: null };
+const state = { dataset: null, question: "heat", mode: "rotation", views: {}, hover: null, chart: null, advanced: null };
 const palette = { current: "#08796f", reference: "#657e9d", grid: "#e9eff1", axis: "#476371" };
 const signed = value => String(value).replace("-", "−");
 const minutes = value => signed(value) + " min";
@@ -62,15 +62,28 @@ function yScale(key) {
 }
 
 function update() {
-  const { key, data, settings } = activeView();
-  const heat = key === "heat";
-  const location = settings.current;
+  const advanced = state.question === "all";
+  const inbound = state.question === "inbound";
+  const heat = state.question === "heat";
   element("heat-tab").setAttribute("aria-pressed", heat);
-  element("inbound-tab").setAttribute("aria-pressed", !heat);
+  element("inbound-tab").setAttribute("aria-pressed", inbound);
+  element("all-tab").setAttribute("aria-pressed", advanced);
+  element("workspace").classList.toggle("advanced", advanced);
+  element("all-field").hidden = !advanced;
   element("temperature-field").hidden = !heat;
-  element("mode-field").hidden = heat;
-  element("inbound-fields").hidden = heat;
+  element("mode-field").hidden = !inbound;
+  element("inbound-fields").hidden = !inbound;
+  if (advanced) {
+    updateAllInputs();
+    return;
+  }
+
+  const { key, data, settings } = activeView();
+  const location = settings.current;
   element("mode").value = state.mode;
+  element("pin").disabled = false;
+  element("reset").disabled = false;
+  element("scenario-warning").hidden = true;
 
   const profile = data.profile;
   const date = new Intl.DateTimeFormat("en-CA", { dateStyle: "medium", timeZone: "UTC" })
@@ -98,26 +111,45 @@ function update() {
   const reference = curveAt(key, data, settings.reference);
   element("scenario").textContent = "Current: " + describe(key, data, location) +
     " · Reference: " + describe(key, data, settings.reference);
-  const stats = [
-    ["median", minutes(current.median), minutes(reference.median)],
-    ["probability", percent(current.p30), percent(reference.p30)],
-    ["interval", signed(current.q05) + " to " + minutes(current.q95),
-      signed(reference.q05) + " to " + minutes(reference.q95)]
-  ];
-  for (const [id, currentText, referenceText] of stats) {
-    element(id).textContent = currentText;
-    element(id + "-reference").textContent = "Reference " + referenceText;
+  present(current, reference, data.yMax);
+}
+
+function updateAllInputs() {
+  const { title, pending, message, invalid, current, reference } = state.advanced.snapshot();
+  element("profile").textContent = title;
+  element("support-note").textContent = pending ? "" :
+    "Sliders span the middle 98% of each fitting input plus the starting value. Some combinations may be rare.";
+  element("pin").disabled = Boolean(pending || invalid);
+  element("reset").disabled = Boolean(pending);
+  element("scenario").textContent = message;
+  const warning = element("scenario-warning");
+  warning.hidden = !invalid;
+  warning.textContent = invalid || "";
+  const peak = Math.max(0.02, ...(reference?.density || []), ...(current?.density || []));
+  present(current, reference, Math.ceil(peak * 50) / 50);
+}
+
+function present(current, reference, max) {
+  const value = (curve, format) => curve ? format(curve) : "—";
+  const fields = {
+    median: curve => minutes(curve.median),
+    probability: curve => percent(curve.p30),
+    interval: curve => signed(curve.q05) + " to " + minutes(curve.q95)
+  };
+  for (const [id, format] of Object.entries(fields)) {
+    element(id).textContent = value(current, format);
+    element(id + "-reference").textContent = reference ? "Reference " + value(reference, format) : "";
   }
+  state.chart = { current: current?.density, reference: reference?.density, max };
   state.hover = null;
   draw();
 }
 
 function draw() {
-  if (!state.dataset || element("workspace").hidden) return;
+  if (!state.chart || element("workspace").hidden) return;
   const canvas = element("density");
-  const { key, data, settings } = activeView();
-  const current = curveAt(key, data, settings.current).density;
-  const reference = curveAt(key, data, settings.reference).density;
+  const { current, reference, max } = state.chart;
+  element("tooltip").hidden = true;
   const { from, to, step } = state.dataset.delay;
   const height = canvas.clientHeight;
   const width = canvas.clientWidth;
@@ -132,7 +164,6 @@ function draw() {
   ctx.clearRect(0, 0, width, height);
 
   const bounds = { left: 55, right: width - 17, top: 16, bottom: height - 42 };
-  const max = data.yMax;
   const x = value => bounds.left + (value - from) / (to - from) * (bounds.right - bounds.left);
   const y = value => bounds.bottom - value / max * (bounds.bottom - bounds.top);
   ctx.font = '12px "Segoe UI", system-ui, sans-serif';
@@ -160,26 +191,29 @@ function draw() {
   line(x(0), bounds.top, x(0), bounds.bottom);
   ctx.setLineDash([]);
 
-  trace(current);
-  ctx.lineTo(x(to), bounds.bottom);
-  ctx.lineTo(x(from), bounds.bottom);
-  ctx.closePath();
-  ctx.fillStyle = "#08796f14";
-  ctx.fill();
-
-  ctx.lineWidth = 2.6;
-  ctx.strokeStyle = palette.current;
-  trace(current);
-  ctx.stroke();
-  ctx.strokeStyle = palette.reference;
-  ctx.setLineDash([6, 5]);
-  ctx.lineWidth = 1.65;
-  trace(reference);
-  ctx.stroke();
-  ctx.setLineDash([]);
+  if (current) {
+    trace(current);
+    ctx.lineTo(x(to), bounds.bottom);
+    ctx.lineTo(x(from), bounds.bottom);
+    ctx.closePath();
+    ctx.fillStyle = "#08796f14";
+    ctx.fill();
+    ctx.lineWidth = 2.6;
+    ctx.strokeStyle = palette.current;
+    trace(current);
+    ctx.stroke();
+  }
+  if (reference) {
+    ctx.strokeStyle = palette.reference;
+    ctx.setLineDash([6, 5]);
+    ctx.lineWidth = 1.65;
+    trace(reference);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
 
   const tip = element("tooltip");
-  if (state.hover === null || state.hover < bounds.left || state.hover > bounds.right) {
+  if (!current || !reference || state.hover === null || state.hover < bounds.left || state.hover > bounds.right) {
     tip.hidden = true;
     return;
   }
@@ -217,6 +251,11 @@ function bind() {
   for (const question of ["heat", "inbound"]) {
     element(question + "-tab").addEventListener("click", () => { state.question = question; update(); });
   }
+  element("all-tab").addEventListener("click", () => {
+    state.question = "all";
+    state.advanced.select(element("all-model").value);
+  });
+  element("all-model").addEventListener("change", event => state.advanced.select(event.target.value));
   element("mode").addEventListener("change", event => { state.mode = event.target.value; update(); });
   element("temperature").addEventListener("input", event => {
     state.views.heat.current.heat = Number(event.target.value);
@@ -235,11 +274,13 @@ function bind() {
     update();
   });
   element("pin").addEventListener("click", () => {
+    if (state.question === "all") return state.advanced.pin();
     const { settings } = activeView();
     settings.reference = { ...settings.current };
     update();
   });
   element("reset").addEventListener("click", () => {
+    if (state.question === "all") return state.advanced.reset();
     const { key, settings } = activeView();
     settings.current = initial(key);
     settings.reference = initial(key);
@@ -263,6 +304,10 @@ async function load() {
       state.views[key] = { current: initial(key), reference: initial(key) };
       state.dataset[key].yMax = yScale(key);
     }
+    state.advanced = createForestControls({
+      container: element("all-controls"), onChange: update, grid: state.dataset.delay,
+      bandwidth: state.dataset.bandwidth, clock
+    });
     bind();
     element("workspace").hidden = false;
     element("status").hidden = true;
