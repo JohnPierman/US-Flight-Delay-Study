@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore how departure heat, time of day, and inbound delay change a fitted flight delay distribution.">
+  <title>Flight Delay Explorer | STAT4P87</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="dashboard.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <a class="brand" href="./"><span class="brand-mark" aria-hidden="true"></span> U.S. Flight Delay Study</a>
+      <a class="masthead-link" href="https://github.com/JohnPierman/US-Flight-Delay-Study">GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="intro">
+      <p class="course">STAT4P87 · 2023–2025</p>
+      <h1>Flight Delay Explorer</h1>
+      <p class="description">Adjust departure conditions and see how the forest’s predicted delay distribution changes.</p>
+    </section>
+
+    <div class="tabs" role="group" aria-label="Study question">
+      <button type="button" id="heat-tab" aria-pressed="true">Departure heat</button>
+      <button type="button" id="inbound-tab" aria-pressed="false">Inbound delay</button>
+    </div>
+    <noscript><p class="notice">Enable JavaScript to use the interactive explorer.</p></noscript>
+    <p id="status" class="notice" role="status">Loading forest predictions…</p>
+
+    <div class="workspace" id="workspace" hidden>
+      <aside class="panel controls" aria-label="Scenario controls">
+        <div class="control-intro">
+          <h2>Flight scenario</h2>
+          <p id="profile"></p>
+        </div>
+        <div class="control-fields">
+          <div id="mode-field" hidden>
+            <label for="mode" class="select-label">Inbound cohort</label>
+            <select id="mode">
+              <option value="rotation">Retrospective</option>
+              <option value="cutoff">Arrived by the one-hour cutoff</option>
+            </select>
+            <p id="mode-note" class="field-note"></p>
+          </div>
+          <div id="temperature-field">
+            <div class="slider-heading">
+              <label for="temperature">Departure temperature</label>
+              <output id="temperature-value" for="temperature"></output>
+            </div>
+            <input type="range" id="temperature">
+            <div class="range-ends" aria-hidden="true"><span id="temperature-low"></span><span id="temperature-high"></span></div>
+          </div>
+          <div id="inbound-fields" hidden>
+            <div class="slider-heading">
+              <label for="clock">Scheduled departure</label>
+              <output id="clock-value" for="clock"></output>
+            </div>
+            <input type="range" id="clock">
+            <div class="range-ends" aria-hidden="true"><span id="clock-low"></span><span id="clock-high"></span></div>
+            <div class="slider-heading prior-heading">
+              <label for="prior">Previous arrival delay</label>
+              <output id="prior-value" for="prior"></output>
+            </div>
+            <input type="range" id="prior">
+            <div class="range-ends" aria-hidden="true"><span id="prior-low"></span><span id="prior-high"></span></div>
+          </div>
+        </div>
+        <p id="support-note" class="field-note"></p>
+        <div class="control-actions">
+          <button type="button" id="pin" class="pin">Set as reference</button>
+          <button type="button" id="reset" class="reset">Reset</button>
+        </div>
+      </aside>
+
+      <section class="panel results" aria-labelledby="plot-title">
+        <div class="results-header">
+          <div>
+            <h2 id="plot-title">Predicted departure delay</h2>
+            <p id="scenario"></p>
+          </div>
+          <div class="legend" aria-label="Chart legend">
+            <span><i aria-hidden="true"></i>Current</span>
+            <span><i class="reference" aria-hidden="true"></i>Reference</span>
+          </div>
+        </div>
+        <div class="chart" id="chart">
+          <canvas id="density" role="img" aria-label="Current and reference probability density curves for departure delay, from 30 minutes early to 180 minutes late." aria-describedby="chart-note"></canvas>
+          <div id="tooltip" class="tooltip" aria-hidden="true" hidden></div>
+        </div>
+        <p class="chart-note" id="chart-note">Negative minutes indicate an early departure. The plot shows −30 to 180 minutes.</p>
+        <dl class="stats" aria-live="polite">
+          <div><dt>Median delay</dt><dd id="median"></dd><dd class="stat-reference" id="median-reference"></dd></div>
+          <div><dt>Chance of 30+ min delay</dt><dd id="probability"></dd><dd class="stat-reference" id="probability-reference"></dd></div>
+          <div><dt>90% prediction interval</dt><dd id="interval"></dd><dd class="stat-reference" id="interval-reference"></dd></div>
+        </dl>
+      </section>
+    </div>
+    <footer>
+      <p>Quantile regression forest · Density smoothed for display · Probabilities use the full forest distribution</p>
+      <a href="https://github.com/JohnPierman/US-Flight-Delay-Study/blob/main/reports/three-year-study-update.md">Technical handoff <span aria-hidden="true">↗</span></a>
+    </footer>
+  </main>
+</body>
+</html>

@@ -136,4 +136,19 @@ The prepare command processes all eligible source flights. For the forest compar
 
 The forest uses 64 trees with a fixed minimum leaf size of 50 for heat and 25 for the two rotation cohorts. Headline airport and traffic configurations come from the previous comparison and are fixed before assigning results. Other airport/traffic combinations are scored as full-model sensitivity checks. Exposure removal and the linear comparison use the headline specifications. The linear residual distribution is estimated on a separate week fold within each outer training set. Feature preprocessing and model fits use only each outer training set. The three saved forest models are then refit on all sampled years.
 
-The output directory contains week and flight fold assignments, fold-level and pooled scores, calibration bins, intraday contrasts, density-profile probabilities, plots, and the refit R models. See the [team write-up](three-year-study-update.md) for the results and the [README](../README.md#three-year-cross-validation) for the plot index.
+The output directory contains week and flight fold assignments, fold-level and pooled scores, calibration bins, intraday contrasts, density-profile probabilities, plots, and the refit R models. See the [team write-up](three-year-study-update.md) for the technical specification and the [README](../README.md#three-year-cross-validation) for the plot index.
+
+## Interactive explorer
+
+The browser uses the three forests refitted by `analysis/study_cv.R`. Regenerate the dashboard asset after refitting or changing the sample.
+
+```r
+install.packages("jsonlite")
+```
+
+```sh
+Rscript analysis/export_dashboard.R data/study-three-year data/three-year-cv docs/delay-data.json
+python -m http.server 8765 --directory docs
+```
+
+Open `http://localhost:8765` to preview. The export keeps fixed flight profiles, evaluates the forest at each supported slider setting, and writes the model summaries to a static asset. It uses a 2.5-minute Gaussian kernel for the displayed density and the original probability mass for threshold probabilities and prediction intervals. The inbound slider range depends on scheduled departure time and, in the cutoff cohort, the scheduled turn and one-hour prediction cutoff. GitHub Pages publishes the `docs/` directory from the `main` branch.

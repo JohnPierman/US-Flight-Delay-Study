@@ -1,33 +1,25 @@
-# STAT4P87 flight delay study update
+# STAT4P87 flight-delay explorer handoff
 
-November 27, 2026
+## Data preparation
 
-## What we built
+The study joins 2023–2025 Bureau of Transportation Statistics domestic flight records with airport metadata and Iowa Environmental Mesonet weather observations. The preparation produced 36 monthly Parquet partitions with 20,420,136 eligible non-cancelled flights. The response is signed departure delay in minutes, computed as actual departure minus scheduled departure. Early departures have negative values.
 
-We prepared 36 months of U.S. domestic flight records, from January 2023 through December 2025. The resulting dataset contains **20,420,136 eligible flights**. About 15.0 million have matched departure-airport temperature, and 8.4 million have a linked inbound arrival by the cutoff. Our outcome is the signed difference, in minutes, between actual and scheduled departure. Negative values represent early departures. The R preparation joins departure-airport weather, adds local minute of day and daily and weekly airport traffic, and reconstructs tentative inbound connections for the same aircraft. For those connections, we record whether the inbound aircraft had landed by the one-hour prediction cutoff.
+The R preparation converts scheduled departures to local minute of day, adds the origin airport's previous completed day and week of scheduled traffic, and joins origin weather available by the one-hour prediction cutoff. It links a qualifying prior arrival on the same aircraft, calculates the scheduled turn, and flags whether that aircraft had landed by the cutoff. The study uses a seeded sample of 1,800 records per month per cohort. For validation, Monday-start weeks stay together and are distributed across five folds within each year and quarter. Category pooling and weather imputation are learned from the training rows in each fold.
 
-We built a quantile regression forest in R using the regression forest from the STAT4P87 ensemble lecture. It estimates a distribution of delay minutes for each flight. We use it to calculate probabilities of 15-, 30-, and 60-minute delays and prediction intervals. The density plots smooth the estimated minute probabilities so we can compare scenarios with one input changed and the rest held fixed.
+## Model specification
 
-## How we validated it
+The explorer uses the three **quantile regression forests** refitted on sampled flights from all three years after cross-validation. Each forest uses 64 regression trees via the R package `ranger`. For a given scenario, each tree contributes the empirical distribution of signed delays in the leaf reached by that scenario. The forecast averages those distributions across trees.
 
-We replaced the chronological holdouts with **five-fold cross-validation** covering all three years. We shuffled 158 whole Monday-start weeks within each year and quarter to distribute seasonal patterns across the folds. Flights in the same week stay together because they can share weather and operational disruptions. Each sampled flight is scored once, by a model trained on the other four folds. The preparation covers all eligible records. For this model run, we used a reproducible sample of up to 1,800 flights per month per cohort, which gave 64,800 evaluated flights per cohort across all 36 months. Competing models use the same flights within each cohort.
+| Model | Inputs that distinguish the cohort | Minimum leaf size |
+|---|---|---:|
+| Departure heat | Origin temperature, origin latitude and longitude, weekly origin traffic | 50 |
+| Retrospective inbound | Prior arrival delay, scheduled turn, origin and destination airport factors, daily origin traffic | 25 |
+| Inbound arrived by cutoff | Prior arrival delay and scheduled turn for qualifying arrivals, both airports' coordinates, weekly origin traffic | 25 |
 
-This design measures how well models generalize to unseen weeks in the historical period. A later, untouched period would be needed to measure future-year forecasting performance. The retrospective and cutoff-only rotation cohorts also describe different groups of flights.
+All three include local scheduled departure time, scheduled route distance, reporting airline, weekday, seasonal terms, and origin wind and visibility. The inbound models also include origin temperature. The primary output is probability mass over observed delay minutes. The interface derives the median, central 90% prediction interval, and probability of a delay of at least 30 minutes from that mass.
 
-## What the results show
+## Site construction
 
-| Cohort | Linear CRPS | Forest CRPS | Forest 90% interval coverage |
-|---|---:|---:|---:|
-| Departure-airport heat | 16.42 | 14.94 | 92.0% |
-| Retrospective inbound delay | 11.45 | 8.77 | 93.6% |
-| Inbound landed by cutoff | 8.03 | 7.43 | 92.2% |
+`analysis/export_dashboard.R` loads the saved forests and evaluates fixed flight profiles on a grid. The heat view varies origin temperature. The inbound view varies scheduled local departure time and prior arrival delay, with a selector for the two inbound cohorts. Slider settings are drawn from locally supported ranges. The cutoff view also checks that the hypothetical prior arrival could have occurred by the cutoff with the fixed scheduled turn.
 
-Lower continuous ranked probability score (CRPS) is better. Although the forest improved the overall heat model, adding departure-airport temperature slightly worsened CRPS in all five folds. The current analysis gives little evidence that temperature adds predictive value after accounting for the other inputs.
-
-Prior arrival delay was strongly informative retrospectively. Including it reduced the modeled 5 p.m. versus 10 a.m. mean-delay gap by 65–70% across the folds. In the cutoff-only cohort, prior delay improved CRPS slightly in every fold, and its association with the intraday gap was much smaller. The gap widened by 3% in one fold and narrowed by up to 20% in the others. The cutoff result is the more relevant one for a prediction made an hour before departure.
-
-The daily and weekly traffic controls performed nearly identically within each airport encoding. Airport factors scored slightly better for retrospective rotation. Airport encoding made little difference in the heat and cutoff-only cohorts.
-
-## What the team can use
-
-The [README](../README.md#three-year-cross-validation) links the plot gallery, including fold balance, linear versus forest scores, airport and traffic sensitivity, predictor contribution, calibration, interval coverage, and the density overlays. The [run instructions](model_readiness.md#reproduce-the-data-and-analysis) walk through downloading or reusing the BTS and weather data, preparing the three-year partitions, and running the R models. The run writes fold assignments, score tables, plot data, and the refit forests locally. These outputs make it possible to reproduce both the comparison and the predicted delay probabilities.
+The exporter applies Gaussian kernel smoothing with a 2.5-minute bandwidth to draw each density curve and writes the curves, profile metadata, and probability summaries to JSON. GitHub Pages serves the `docs/` folder as static HTML, CSS, and JavaScript. The browser selects the corresponding forest prediction when a slider moves and can pin any scenario as a reference. See the [reproduction instructions](model_readiness.md#interactive-explorer) for the export command.
